@@ -2,7 +2,7 @@ environment: stage
 
 deployment:
   image:
-    tag: 1641
+    tag: backstage-minikube-lab
   replicas: 1
   env:
     redis_host: redis-stage-master 
