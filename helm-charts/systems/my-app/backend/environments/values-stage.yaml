@@ -4,5 +4,11 @@ deployment:
   image:
     tag: backstage-minikube-lab
   replicas: 1
+
+  labels:
+    environment: stage
+    app: my-app-backend-stage
+    backstage.io/kubernetes-id: my-app-backend-stage
+
   env:
     redis_host: redis-stage-master 
