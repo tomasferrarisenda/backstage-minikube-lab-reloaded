@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appName }}-{{ .Values.environment }}-deployment
+  name: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-deployment
 spec:
   replicas: {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.appName }}-{{ .Values.environment }}
+      app: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appName }}-{{ .Values.environment }}
+        app: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}
     spec:
       containers:
-        - name: {{ .Values.appName }}-{{ .Values.environment }}
+        - name: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}
           image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}
           ports:
             - containerPort: 80
@@ -25,7 +25,7 @@ spec:
       volumes:
         - name: images-configmap
           configMap:
-            name: {{ .Values.appName }}-{{ .Values.environment }}-images-configmap
+            name: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-images-configmap
         - name: nginx-conf-configmap
           configMap:
-            name: {{ .Values.appName }}-{{ .Values.environment }}-nginx-conf-configmap
+            name: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-nginx-conf-configmap
