@@ -6,6 +6,11 @@ deployment:
   image:
     repository: tferrari92/my-app-frontend # This value was modified by the initial-setup script
 
+  labels:
+    system: my-app
+    service: frontend
+    backstage.io/kubernetes-id: my-app-frontend
+
 configmap:
   images: |-
     var images = [
