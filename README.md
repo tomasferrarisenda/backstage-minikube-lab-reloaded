@@ -58,17 +58,17 @@ We'll be using a GitOps methodology with Helm, ArgoCD and the App Of Apps Patter
 # INITIAL SETUP
 In order to turn this whole deployment into your own thing, we need to do some initial setup:
 
-1. Fork this repo. Keep the repository name "backstage-minikube-lab".
+1. Fork this repo. Keep the repository name "backstage-minikube-lab-reloaded".
 1. Clone the repo from your fork:
 
 ```bash
-git clone https://github.com/<your-github-username>/backstage-minikube-lab.git
+git clone https://github.com/<your-github-username>/backstage-minikube-lab-reloaded.git
 ```
 
 2. Move into the directory:
 
 ```bash
-cd backstage-minikube-lab
+cd backstage-minikube-lab-reloaded
 ```
 
 2. Run the initial setup script. Come back when you are done:

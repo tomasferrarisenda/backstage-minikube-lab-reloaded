@@ -37,7 +37,7 @@ backstage:
             catalogPath: '/application-code/**/*catalog-info.yaml' # this will search all folders for files that end in template.yaml
             filters:
               branch: 'main' # string
-              repository: 'backstage-minikube-lab' # Regex
+              repository: 'backstage-minikube-lab-reloaded' # Regex
             schedule: # same options as in TaskScheduleDefinition
               frequency: { minutes: 1 }
               timeout: { minutes: 3 }
@@ -48,7 +48,7 @@ backstage:
             catalogPath: '/application-code/**/*catalog-info.yaml' # this will search all folders for files that end in template.yaml
             filters:
               branch: 'main' # string
-              repository: 'backstage-minikube-lab' # Regex
+              repository: 'backstage-minikube-lab-reloaded' # Regex
             schedule: # same options as in TaskScheduleDefinition
               frequency: { minutes: 1 }
               timeout: { minutes: 3 }
@@ -59,7 +59,7 @@ backstage:
             catalogPath: '/application-code/**/*api-info.yaml' # this will search all folders for files that end in template.yaml
             filters:
               branch: 'main' # string
-              repository: 'backstage-minikube-lab' # Regex
+              repository: 'backstage-minikube-lab-reloaded' # Regex
             schedule: # same options as in TaskScheduleDefinition
               frequency: { minutes: 1 }
               timeout: { minutes: 3 }
@@ -70,7 +70,7 @@ backstage:
             catalogPath: '/backstage/entities/templates/**/*template.yaml' # this will search all folders for files that end in template.yaml
             filters:
               branch: 'main' # string
-              repository: 'backstage-minikube-lab' # Regex
+              repository: 'backstage-minikube-lab-reloaded' # Regex
             schedule: # same options as in TaskScheduleDefinition
               frequency: { minutes: 1 }
               timeout: { minutes: 3 }
@@ -81,7 +81,7 @@ backstage:
             catalogPath: '/backstage/entities/systems/**/*.yaml' # this will search all folders for files that end in .yaml
             filters:
               branch: 'main' # string
-              repository: 'backstage-minikube-lab' # Regex
+              repository: 'backstage-minikube-lab-reloaded' # Regex
             schedule: # same options as in TaskScheduleDefinition
               frequency: { minutes: 1 }
               timeout: { minutes: 3 }
@@ -92,7 +92,7 @@ backstage:
             catalogPath: '/backstage/entities/groups/**/*.yaml' # this will search all folders for files that end in .yaml
             filters: # optional filters
               branch: 'main' # optional string
-              repository: 'backstage-minikube-lab' # optional Regex
+              repository: 'backstage-minikube-lab-reloaded' # optional Regex
             schedule: # same options as in TaskScheduleDefinition
               frequency: { minutes: 1 }
               timeout: { minutes: 3 }
@@ -103,7 +103,7 @@ backstage:
             catalogPath: '/backstage/entities/users/**/*.yaml' # this will search all folders for files that end in .yaml
             filters: # optional filters
               branch: 'main' # optional string
-              repository: 'backstage-minikube-lab' # optional Regex
+              repository: 'backstage-minikube-lab-reloaded' # optional Regex
             schedule: # same options as in TaskScheduleDefinition
               frequency: { minutes: 1 }
               timeout: { minutes: 3 }
