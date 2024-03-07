@@ -1,9 +1,9 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: new-backstage-user
-  title: New Backstage User
-  description: Create new Backstage user
+  name: new-backstage-group
+  title: New Backstage Group
+  description: Create new Backstage group
   tags:
     - backstage
 spec:
@@ -13,10 +13,10 @@ spec:
     - title: Provide some simple information
       required:
         - name
-        - lastName
+        - title
+        - description
+        - type
         - email
-        - group
-        - pictureURL
       properties:
         name:
           title: Name
@@ -24,31 +24,37 @@ spec:
           description: Name of the new user
           ui:field: EntityNamePicker
           ui:autofocus: true
-        lastName:
-          title: Last Name
+        title:
+          title: Title
           type: string
-          description: Last name of the new user
-          ui:field: EntityNamePicker
+          description: Human readable title of the new group
+          # ui:field: EntityNamePicker
           ui:autofocus: true
+        description:
+          title: Description
+          type: string
+          description: Describe the new group
+          # ui:field: EntityNamePicker
+          ui:autofocus: true
+        parent:
+          title: Parent
+          type: string
+          description: Parent of the new group. If empty, it will default to 'root'
+        type:
+          title: Type
+          type: string
+          description: Type of the new group
+          enum:
+            - team
+            - business-unit
+            - product-area
         email:
           title: Email
           type: string
-          description: Email of the new user
+          description: Email of the new group
           # ui:field: EntityNamePicker
           ui:autofocus: true
-        pictureURL:
-          title: Profile picutre
-          type: string
-          description: URL to the profile picture of the new user
-          ui:autofocus: true
-        group:
-          title: Group
-          type: string
-          description: Group this user belongs to
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
+
 
     - title: Choose a location
       required:
@@ -70,10 +76,13 @@ spec:
         url: ./skeleton
         values:
           name: ${{ parameters.name }}
-          lastName: ${{ parameters.lastName }}
+          title: ${{ parameters.title }}
+          description: ${{ parameters.description }}
+          type: ${{ parameters.type }}
+          # Had to add default value 'root' because the 'parent' parameter in the Group manifest needs to have a value. It cannot be '[]' or 'null'. 
+          # And since we are establishing hierarchy from the bottom up, we must have the 'parent' parameter in the Group manifest.
+          parent: ${{ parameters.parent | default('root') }}
           email: ${{ parameters.email }}
-          group: ${{ parameters.group }}
-          pictureURL: ${{ parameters.pictureURL }}
 
     # - id: append-new-user
     #   name: Append new user to all-users.yaml
@@ -91,11 +100,11 @@ spec:
       input:
         allowedHosts: ['github.com']
         repoUrl: ${{ parameters.repoUrl }}
-        title: "Create new user: ${{parameters.name}} ${{parameters.lastName}}"
-        branchName: create-user-${{parameters.name | lower }}-${{parameters.lastName | lower }}
+        title: "Create new group: ${{parameters.name}}"
+        branchName: create-group-${{parameters.name | lower }}
         description: |
-          # New user: ${{parameters.name}} ${{parameters.lastName}}
-        targetPath: backstage/entities/users
+          # New user: ${{parameters.name}}
+        targetPath: backstage/entities/groups
         # targetPath: "" # Leave empty to use the root of the repo or specify if needed
         # paths: 
         #   - backstage/entities/users

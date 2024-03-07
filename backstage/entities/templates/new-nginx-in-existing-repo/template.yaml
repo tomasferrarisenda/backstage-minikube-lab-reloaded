@@ -1,11 +1,11 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: new-nodejs-in-existing-repo
-  title: New Node.js in Existing Repo
-  description: Creates all the boilerplate files and directories in an existing repo for deploying a new Node.js service in Kubernetes. Useful for creating a backend service that provides an API.
+  name: new-nginx-in-existing-repo
+  title: New NGINX in Existing Repo
+  description: Creates all the boilerplate files and directories in an existing repo for deploying a new NGINX service in Kubernetes. Useful for creating a frontend static website.
   tags:
-    - nodejs
+    - nginx
 spec:
   owner: web@example.com
   type: service
@@ -86,7 +86,7 @@ spec:
       action: fetch:template
       input:
         url: ./helm-chart
-        targetPath: helm/${{ parameters.system }}/${{ parameters.service }}
+        targetPath: helm-charts/${{ parameters.system }}/${{ parameters.service }}
         values:
           system: ${{ parameters.system }}
           service: ${{ parameters.service }}
