@@ -70,6 +70,18 @@ auth:
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+        - url: kubernetes.default.svc.cluster.local:443
+          name: local
+          authProvider: 'serviceAccount'
+          skipTLSVerify: false
+          skipMetricsLookup: true
+
 catalog:
   rules:
     - allow:
@@ -83,21 +95,6 @@ catalog:
         - Group
         - Template
 
-  # We don't use this anymore because I installed the GitHub Discovery plugin
-  # locations:
-    # - type: url
-    #   target: https://github.com/tomasferrarisenda/backstage/blob/main/backstage/entities/all-templates.yaml
-    #   rules:
-    #     - allow: [Template]
-    # - type: url
-    #   target: https://github.com/tomasferrarisenda/backstage/blob/main/backstage/entities/all-users.yaml
-    #   rules:
-    #     - allow: [User]
-    # - type: url
-    #   target: https://github.com/tomasferrarisenda/backstage/blob/main/backstage/entities/all-groups.yaml
-    #   rules:
-    #     - allow: [Group]
-
   refreshIntervalSeconds: 5 # In seconds. Default is 100
 
   providers:
@@ -105,7 +102,7 @@ catalog:
 
       # Use this if new services are created in their own repositories
       # catalogsProvider:
-      #   organization: 'tomasferrarisenda' # string
+      #   organization: 'tomasferrarisenda' # This value was modified by the initial-setup script
       #   catalogPath: '/catalog-info.yaml' # string
       #   filters:
       #     branch: 'main' # string
@@ -114,21 +111,10 @@ catalog:
       #     frequency: { minutes: 30 }
       #     timeout: { minutes: 3 }
 
-      # Systems
-      systemsProvider:
-        organization: 'tomasferrarisenda' # string
-        catalogPath: '/backstage/entities/systems/**/*.yaml' # this will search all folders for files that end in .yaml
-        filters:
-          branch: 'main' # string
-          repository: 'backstage-minikube-lab' # Regex
-        schedule: # same options as in TaskScheduleDefinition
-          frequency: { minutes: 1 }
-          timeout: { minutes: 3 }
-
       # Catalogs
       catalogsProvider:
-        organization: 'tomasferrarisenda' # string
-        catalogPath: '/my-app/**/*catalog-info.yaml' # this will search all folders for files that end in template.yaml
+        organization: 'tomasferrarisenda' # This value was modified by the initial-setup script
+        catalogPath: '/application-code/**/*catalog-info.yaml' # this will search all folders for files that end in template.yaml
         filters:
           branch: 'main' # string
           repository: 'backstage-minikube-lab' # Regex
@@ -138,8 +124,19 @@ catalog:
 
       # Resources
       resourcesProvider:
-        organization: 'tomasferrarisenda' # string
-        catalogPath: '/my-app/**/*catalog-info.yaml' # this will search all folders for files that end in template.yaml
+        organization: 'tomasferrarisenda' # This value was modified by the initial-setup script
+        catalogPath: '/application-code/**/*catalog-info.yaml' # this will search all folders for files that end in template.yaml
+        filters:
+          branch: 'main' # string
+          repository: 'backstage-minikube-lab' # Regex
+        schedule: # same options as in TaskScheduleDefinition
+          frequency: { minutes: 1 }
+          timeout: { minutes: 3 }
+
+      # APIs
+      apisProvider:
+        organization: 'tomasferrarisenda' # This value was modified by the initial-setup script
+        catalogPath: '/application-code/**/*api-info.yaml' # this will search all folders for files that end in template.yaml
         filters:
           branch: 'main' # string
           repository: 'backstage-minikube-lab' # Regex
@@ -149,8 +146,19 @@ catalog:
 
       # Templates
       templatesProvider:
-        organization: 'tomasferrarisenda' # string
+        organization: 'tomasferrarisenda' # This value was modified by the initial-setup script
         catalogPath: '/backstage/entities/templates/**/*template.yaml' # this will search all folders for files that end in template.yaml
+        filters:
+          branch: 'main' # string
+          repository: 'backstage-minikube-lab' # Regex
+        schedule: # same options as in TaskScheduleDefinition
+          frequency: { minutes: 1 }
+          timeout: { minutes: 3 }
+
+      # Systems
+      systemsProvider:
+        organization: 'tomasferrarisenda' # This value was modified by the initial-setup script
+        catalogPath: '/backstage/entities/systems/**/*.yaml' # this will search all folders for files that end in .yaml
         filters:
           branch: 'main' # string
           repository: 'backstage-minikube-lab' # Regex
@@ -160,7 +168,7 @@ catalog:
 
       # Groups
       groupsProvider:
-        organization: 'tomasferrarisenda' # string
+        organization: 'tomasferrarisenda' # This value was modified by the initial-setup script
         catalogPath: '/backstage/entities/groups/**/*.yaml' # this will search all folders for files that end in .yaml
         filters: # optional filters
           branch: 'main' # optional string
@@ -171,7 +179,7 @@ catalog:
 
       # Users
       usersProvider:
-        organization: 'tomasferrarisenda' # string
+        organization: 'tomasferrarisenda' # This value was modified by the initial-setup script
         catalogPath: '/backstage/entities/users/**/*.yaml' # this will search all folders for files that end in .yaml
         filters: # optional filters
           branch: 'main' # optional string
@@ -181,14 +189,3 @@ catalog:
           timeout: { minutes: 3 }
 
 
-kubernetes:
- serviceLocatorMethod:
-   type: 'multiTenant'
- clusterLocatorMethods:
-   - type: 'config'
-     clusters:
-       - url: kubernetes.default.svc.cluster.local:443
-         name: local
-         authProvider: 'serviceAccount'
-         skipTLSVerify: false
-         skipMetricsLookup: true

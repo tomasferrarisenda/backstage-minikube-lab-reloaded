@@ -11,6 +11,14 @@
 
 FROM node:18-bookworm-slim
 
+# We nee to install mkdocs-techdocs-core to be able to run the techdocs build command. See: https://backstage.io/docs/features/techdocs/getting-started/#disabling-docker-in-docker-situation-optional
+# Caveat: Please install the mkdocs-techdocs-core package after all other Python packages. The order is important to make sure we get correct version of some of the dependencies.
+RUN apt-get update && apt-get install -y python3 python3-pip python3-venv
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN pip3 install mkdocs-techdocs-core==1.0.1
+
 # Install isolate-vm dependencies, these are needed by the @backstage/plugin-scaffolder-backend.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \

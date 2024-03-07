@@ -4,6 +4,15 @@ app:
   baseUrl: http://localhost:7007
 
 backend:
+  # This is because when running in K8S, profile images of users don't load. We get error: 
+  # Refused to load the image 'https://i.imgur.com/LWGqYi2.jpg' because it violates the following Content Security Policy directive: "img-src 'self' data:".
+  # See: https://john-tucker.medium.com/backstage-by-example-part-3-5a1efec3bcb1
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+    img-src: ["'self'", 'data:', 'https://i.imgur.com']
+
   # Note that the baseUrl should be the URL that the browser and other clients
   # should use when communicating with the backend, i.e. it needs to be
   # reachable not just from within the backend host, but from all of your
@@ -40,103 +49,24 @@ integrations:
 techdocs:
   builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'docker' # Alternatives - 'local'
+    runIn: 'local' # We use local in porduction because it fails with "docker" when runnin in minikube.
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
-catalog:
-  rules:
-    - allow:
-        - Component
-        - API
-        - Resource
-        - System
-        - Domain
-        - Location
-        - User
-        - Group
-        - Template
-
-  # We don't use this anymore because I installed the GitHub Discovery plugin
-  # locations:
-    # - type: url
-    #   target: https://github.com/tomasferrarisenda/backstage/blob/main/backstage/entities/all-templates.yaml
-    #   rules:
-    #     - allow: [Template]
-    # - type: url
-    #   target: https://github.com/tomasferrarisenda/backstage/blob/main/backstage/entities/all-users.yaml
-    #   rules:
-    #     - allow: [User]
-    # - type: url
-    #   target: https://github.com/tomasferrarisenda/backstage/blob/main/backstage/entities/all-groups.yaml
-    #   rules:
-    #     - allow: [Group]
-
-  refreshIntervalSeconds: 5 # In seconds. Default is 100
-
-  providers:
-    github:
-
-      # Use this if new services are created in their own repositories
-      # catalogsProvider:
-      #   organization: 'tomasferrarisenda' # string
-      #   catalogPath: '/catalog-info.yaml' # string
-      #   filters:
-      #     branch: 'main' # string
-      #     repository: '.*' # Regex
-      #   schedule: # same options as in TaskScheduleDefinition
-      #     frequency: { minutes: 30 }
-      #     timeout: { minutes: 3 }
-
-      catalogsProvider:
-        organization: 'tomasferrarisenda' # string
-        catalogPath: '/my-app/**/*catalog-info.yaml' # this will search all folders for files that end in template.yaml
-        filters:
-          branch: 'main' # string
-          repository: 'backstage-minikube-lab' # Regex
-        schedule: # same options as in TaskScheduleDefinition
-          frequency: { minutes: 1 }
-          timeout: { minutes: 3 }
-
-      templatesProvider:
-        organization: 'tomasferrarisenda' # string
-        catalogPath: '/backstage/entities/templates/**/*template.yaml' # this will search all folders for files that end in template.yaml
-        filters:
-          branch: 'main' # string
-          repository: 'backstage-minikube-lab' # Regex
-        schedule: # same options as in TaskScheduleDefinition
-          frequency: { minutes: 1 }
-          timeout: { minutes: 3 }
-
-      groupsProvider:
-        organization: 'tomasferrarisenda' # string
-        catalogPath: '/backstage/entities/groups/**/*.yaml' # this will search all folders for files that end in .yaml
-        filters: # optional filters
-          branch: 'main' # optional string
-          repository: 'backstage-minikube-lab' # optional Regex
-        schedule: # same options as in TaskScheduleDefinition
-          frequency: { minutes: 1 }
-          timeout: { minutes: 3 }
-
-      usersProvider:
-        organization: 'tomasferrarisenda' # string
-        catalogPath: '/backstage/entities/users/**/*.yaml' # this will search all folders for files that end in .yaml
-        filters: # optional filters
-          branch: 'main' # optional string
-          repository: 'backstage-minikube-lab' # optional Regex
-        schedule: # same options as in TaskScheduleDefinition
-          frequency: { minutes: 1 }
-          timeout: { minutes: 3 }
-
-
 kubernetes:
- serviceLocatorMethod:
-   type: 'multiTenant'
- clusterLocatorMethods:
-   - type: 'config'
-     clusters:
-       - url: kubernetes.default.svc.cluster.local:443
-         name: local
-         authProvider: 'serviceAccount'
-         skipTLSVerify: false
-         skipMetricsLookup: true
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+        - url: kubernetes.default.svc.cluster.local:443
+          name: local
+          authProvider: 'serviceAccount'
+          skipTLSVerify: false
+          skipMetricsLookup: true
+
+##########################################################################################
+# The Catalog configuration will be passed through a ConfigMap when deployed to Kubernetes.
+# Check the values-custom.yaml file in the Backstage helm-chart.
+
+

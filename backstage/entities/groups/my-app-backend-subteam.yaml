@@ -10,8 +10,9 @@ metadata:
 spec:
   type: team
   children: []
-  members:
-    - kratos
+  parent: my-app-team
+  # members:
+  #   - kratos
   profile:
     email: my-app-backend-subteam@example.com
-    slack: #platform-team
+    # slack: 
