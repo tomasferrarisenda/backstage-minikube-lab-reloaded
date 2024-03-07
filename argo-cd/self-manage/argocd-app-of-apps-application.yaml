@@ -4,12 +4,12 @@ metadata:
   name: app-of-apps
   namespace: argocd
 spec:    
+  project: default
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
-  project: default
   source:
-    repoURL: https://github.com/tomasferrarisenda/backstage-minikube-lab-reloaded.git # This value was modified by the initial-setup python script
+    repoURL: https://github.com/tomasferrarisenda/backstage-minikube-lab-reloaded.git # This value was modified by the initial-setup script
     path: argo-cd/applications
     directory:
       recurse: true

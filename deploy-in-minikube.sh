@@ -8,7 +8,7 @@ read -p "Enter your GitHub token: " GITHUB_TOKEN
 minikube start --cpus 4 --memory 4096
 
 # Install ArgoCD
-helm install argocd -n argocd helm/infra/argo-cd --values helm/infra/argo-cd/values-custom.yaml --dependency-update --create-namespace
+helm install argocd -n argocd helm-charts/infra/argo-cd --values helm-charts/infra/argo-cd/values-custom.yaml --dependency-update --create-namespace
 
 # Get ArgoCD admin password
 until kubectl -n argocd get secret argocd-initial-admin-secret &> /dev/null; do
@@ -29,7 +29,7 @@ echo "##########################################################################
 echo "#############################################################################"
 echo "#############################################################################"
 
-# Then we create an application that will monitor the helm/infra/argocd directory, the same we used to deploy ArgoCD, making ArgoCD self-managed. Any changes we apply in the helm/infra/argocd directory will be automatically applied.
+# Then we create an application that will monitor the helm-charts/infra/argo-cd directory, the same we used to deploy ArgoCD, making ArgoCD self-managed. Any changes we apply in the helm/infra/argocd directory will be automatically applied.
 kubectl create -n argocd -f argo-cd/self-manage/argocd-application.yaml  
 
 # Finally, we create an application that will automatically deploy any ArgoCD Applications we specify in the argo-cd/applications directory (App of Apps pattern).
