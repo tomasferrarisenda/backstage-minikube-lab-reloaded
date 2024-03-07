@@ -1,4 +1,6 @@
-appName: AATT_APP_NAME-frontend # This value was modified by the initial-setup script
+system: my-app 
+
+service: frontend
 
 deployment:
   image:
