@@ -181,25 +181,25 @@ You can check the automatic discovery configuration under catalog.providers.gith
 ### GitHub Actions plugin 
 https://roadie.io/backstage/plugins/github-actions/
 
-## ArgoCD plugin
+### ArgoCD plugin
 https://roadie.io/backstage/plugins/argo-cd/
 
-## GitHub Insights plugin
+### GitHub Insights plugin
 https://roadie.io/backstage/plugins/github-insights/
 
-## Grafana plugin
+### Grafana plugin
 https://roadie.io/docs/integrations/grafana/
 
-## GitHub Security Insights plugin ## ESTE NO SE SI REQUIERE TAMBEN EL DE LOGIN CON GITHUB. HAY   PROBARLO 
+### GitHub Security Insights plugin ## ESTE NO SE SI REQUIERE TAMBEN EL DE LOGIN CON GITHUB. HAY   PROBARLO 
 https://www.kosli.com/blog/implementing-backstage-4-security-and-compliance/
 https://roadie.io/backstage/plugins/security-insights/
 
-## Homepage plugin
+### Homepage plugin
 https://backstage.io/docs/getting-started/homepage/ 
 https://www.kosli.com/blog/succeeding-with-backstage-part-1-customizing-the-look-and-feel-of-backstage/
 
 
-## Changed App Theme
+### Changed App Theme
 https://www.kosli.com/blog/succeeding-with-backstage-part-1-customizing-the-look-and-feel-of-backstage/
 
 </br>
@@ -285,8 +285,9 @@ RELOADED
 Update the value of backstage.image.tag in the backstage values-custom.yaml 
 ```bash
 cd ../..
-vim backstage/helm-chart/values-custom.yaml
+vim helm-charts/infra/backstage/values-custom.yaml
 ```
+
 Save and push to repo
 ```bash
 git add .
