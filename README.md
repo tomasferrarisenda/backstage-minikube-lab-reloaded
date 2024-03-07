@@ -280,11 +280,14 @@ We first need to build and push the Backstage Docker image. Run the build-push-i
 chmod +x build-push-image.sh
 ./build-push-image.sh
 ```
-RELOADED
-### Update image tag in backstage chart values
-Update the value of backstage.image.tag in the backstage values-custom.yaml 
+
+cd to the root of the repo:
 ```bash
 cd ../..
+```
+
+Update the value of backstage.image.tag in the backstage values-custom.yaml 
+```bash
 vim helm-charts/infra/backstage/values-custom.yaml
 ```
 
@@ -295,21 +298,13 @@ git commit -m "Updated backstage image tag"
 git push
 ```
 
-
 If you have a Minikube cluster running, delete it first with `minikube delete`.
-
-cd to the root of the repo:
-```bash
-cd ../..
-```
 
 Now run the deploy-in-minikube.sh script to get everything setup:
 ```bash
 chmod +x deploy-in-minikube.sh
 ./deploy-in-minikube.sh
 ```
-
-</br>
 
 Now go to localhost:8080 on your browser and Voilá!
 

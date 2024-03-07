@@ -2,7 +2,7 @@
 
 # Prompt the user for their GitHub token
 read -p "Enter your GitHub token: " GITHUB_TOKEN
-read -p "What image tag should be used for Backstage deployment?: " IMAGE_TAG
+# read -p "What image tag should be used for Backstage deployment?: " IMAGE_TAG
 
 # Start cluster. Extra beefy beause Backstage is a bit heavy.
 minikube start --cpus 4 --memory 4096
