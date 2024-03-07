@@ -17,29 +17,26 @@
     <a  href="/docs/readme_es.md">Versión en Español</a>
 </p> -->
 
-<p title="All The Things" align="center"> <img src="https://i.imgur.com/FbsIwSJ.jpg"> </p>
-
+<p title="Banner" align="center"> <img src="https://i.imgur.com/FbsIwSJ.jpg"> </p>
 
 # INDEX
 
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
+- [Initial Setup](#initial-setup)
+- [Run Backstage Locally](#run-backstage-locally)
 - [Customising Backstage](#customising-backstage)
   - [Plugins I've Added](#plugins-ive-added)
   - [Templates I've Created](#templates-ive-created)
-- [Initial Setup](#initial-setup)
-- [Backstage Local Setup](#backstage-local-setup)
-- [Run In Kubernetes Environment](#run-in-kubernetes-environment)
-- [Excercise](#excercise)
-  - [What we are starting off with](#what-we-are-starting-off-with)
-  - [What we are doing](#what-we-are-doing)
-
+  - [My Arbitrary Rules](#my-arbitrary-rules)
+- [Run Backstage In Minikube](#run-backstage-in-minikube)
+- [Conclusion](#conclusion)
 
 </br>
 </br>
 
 # INTRODUCTION
-This is a spinoff of my [Automate All The Things](https://github.com/tferrari92/automate-all-the-things) project. While working on the [Nirvana Edition](https://github.com/tferrari92/automate-all-the-things-nirvana) which will include a Developer Portal built with Backstage, I'm creating this smaller lab for anyone who wants to start experimenting with this tool.
+This is a spin-off of my [Automate All The Things](https://github.com/tferrari92/automate-all-the-things) DevOps project. While working on the [Nirvana Edition](https://github.com/tferrari92/automate-all-the-things-nirvana) - which will include a Developer Portal built with Backstage - I'm creating this smaller lab for anyone who wants to start experimenting with this tool.
 
 Backstage is a framework for creating developer portals. This developer portal should act as a centralized hub for your organization, providing access to documentation, infrastructure, tooling, and code standards. It gives developers everything they need to create and manage their projects in a consistent and standardized manner. If you are new to Backstage, I invite you to read [this brilliant series of articles](https://www.kosli.com/blog/evaluating-backstage-1-why-backstage/) by Alexandre Couedelo.
 
@@ -49,50 +46,14 @@ We'll be using a GitOps methodology with Helm, ArgoCD and the App Of Apps Patter
 </br>
 
 # PREREQUISITES
-- Minikube installed
+- Active DockerHub account
+- minikube installed
 - kubectl installed
-- Helm installed
+- helm installed
 
 </br>
 </br>
 
-# CUSTOMISING BACKSTAGE
-Backstage is designed from the ground up to be flexible and allow every organization to adapt it to their own needs. It is not a black-box application where you install plugins; rather, you maintain your own source code and can modify it as needed.
-
-I've already added some custom stuff to the default Backstage installation that I think are essential. 
-
-## Plugins I've added
-#### Kubernetes plugin
-The [Kubernetes plugin](https://backstage.io/docs/features/kubernetes/) in Backstage is a tool that's designed around the needs of service owners, not cluster admins. Now developers can easily check the health of their services no matter how or where those services are deployed — whether it's on a local host for testing or in production on dozens of clusters around the world.
-
-It will elevate the visibility of errors where identified, and provide drill down about the deployments, pods, and other objects for a service.
-
-#### GitHub Discovery plugin 
-The [GitHub integration](https://backstage.io/docs/integrations/github/discovery) has a discovery provider for discovering catalog entities within a GitHub organization. The provider will crawl the GitHub organization and register entities matching the configured path. This can be useful as an alternative to static locations or manually adding things to the catalog. This is the preferred method for ingesting entities into the catalog.
-
-I've installed it without events support. Updates to the catalog will rely on periodic scanning rather than real-time updates.
-
-## ArgoCD plugin
-https://roadie.io/backstage/plugins/argo-cd/
-</br>
-
-## Templates I've created
-#### New nodejs in new repo
-lorem ipsum
-
-#### New nodejs in existing repo
-lorem ipsum
-
-#### New backstage user
-lorem ipsum
-
-#### New backstage group
-lorem ipsum
-
-#### New documentation
-
-</br>
-</br>
 
 # INITIAL SETUP
 In order to turn this whole deployment into your own thing, we need to do some initial setup:
@@ -113,10 +74,11 @@ cd backstage-minikube-lab
 2. Run the initial setup script. Come back when you are done:
 
 ```bash
-python3 python/initial-setup.py
+chmod +x initial-setup.sh
+./initial-setup.sh
 ```
 
-4. Hope you enjoyed the welcome script! Now push your customized repo to GitHub:
+4. Commit and push your customized repo to GitHub:
 
 ```bash
 git add .
@@ -127,10 +89,10 @@ git push
 </br>
 </br>
 
-# BACKSTAGE LOCAL SETUP
-Before deploying Backstage in a Kubernetes environment (Minikube), we need to build it locally. Testing the change you make to your Backstage implementation is also recommended to be done locally since it's much quicker than building the image, pushing it, etc. to test in in K8S.
+# RUN BACKSTAGE LOCALLY
+Before deploying Backstage in a Kubernetes environment (Minikube), we need to build it locally.
 
-#### Install NVM
+Install nvm:
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 nvm install 18
@@ -138,24 +100,38 @@ nvm use 18
 nvm alias default 18
 ```
 
-#### Install yarn
+Install yarn and dependencies:
 ```bash
 npm install --global yarn
 yarn set version 1.22.19
 yarn --version
 yarn global add concurrently
 ```
+</br>
 
-#### Get GitHub PAT (Personal Access Token)
-You can do the following to create a GitHub PAT:
+### Get GitHub PAT (Personal Access Token)
 
-Navigate to the GitHub PAT creation page.
-In the Note field, enter the name of the token, such as backstage-token.
-Choose a value for Expiration and select the scope of your token. When creating a template, you’ll need to select at least the repo scope.
-https://i.imgur.com/x28b4Q5.png
+Navigate to the GitHub PAT creation page. Select "Generate new token (classic)". 
 
-#### Local testing
-Create en env var for your GitHub token
+Choose a name and a value for expiration. Under scopes select "repo" and "workflow". It should look something like this:
+
+<p title="GitHub Token" align="center"> <<img width="650" src="https://i.imgur.com/zTn7gDI.png"> </p>
+
+Click Generate token. Store the token somewhere safe.
+
+</br>
+
+<!-- ### (Optional) Set up secrets for GitHub workflows
+This is only required if you intend to use GitHub workflows.
+
+Create these two repository secrets on your GitHub repo:
+- DOCKER_USERNAME: <your-dockerhub-username\>
+- DOCKER_PASSWORD: <your-dockerhub-password\>
+
+</br> -->
+
+### Run locally
+Create env var for your GitHub token
 ```bash
 export GITHUB_TOKEN=<your-github-token>
 ```
@@ -168,31 +144,149 @@ yarn tsc
 yarn dev
 ```
 
-This should open backstage in your browser. If all runs smoothly, we can proceed to deploying backstage in Minikube. 
+This should open Backstage in your browser on localhost:3000.
 
 Every time you make changes to the Backstage code, it's recommended you test it by running it locally with "yarn dev", since it will be much faster that testing it in Minikube.
 
-"Ctrl + C" to stop the running process and let's continue...
+</br>
+</br>
+
+# CUSTOMISING BACKSTAGE
+Before deploying to Minikube, lets go over some things you'll find in this Backstage deployment.
+
+Backstage is designed to be flexible and allow every organization to adapt it to their own needs. It is not a black-box application where you install plugins; rather, you maintain your own source code and can modify it as needed.
+
+I've already added some custom stuff to the default Backstage installation that I think are essential. 
+
+</br>
+
+## Plugins I've added
+
+### Kubernetes plugin
+The [Kubernetes plugin](https://backstage.io/docs/features/kubernetes/) in Backstage is a tool that's designed around the needs of service owners, not cluster admins. Now developers can easily check the health of their services no matter how or where those services are deployed — whether it's on a local host for testing or in production on dozens of clusters around the world.
+
+It will elevate the visibility of errors where identified, and provide drill down about the deployments, pods, and other objects for a service.
+
+</br>
+
+### GitHub Discovery plugin 
+The [GitHub Discovery plugin](https://backstage.io/docs/integrations/github/discovery) automatically discovers catalog entities within a GitHub organization. The provider will crawl the GitHub organization and register entities matching the configured path. This can be useful as an alternative to static locations or manually adding things to the catalog. This is the preferred method for ingesting entities into the catalog.
+
+I've installed it without events support. Updates to the catalog will rely on periodic scanning rather than real-time updates.
+
+You can check the automatic discovery configuration under catalog.providers.github in the [app-config.yaml](/backstage/my-backstage/app-config.yaml) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) files.
+
+**IMPORTANT**: We use [app-config.yaml](/backstage/my-backstage/app-config.yaml) for local testing (when running `yarn dev`) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) when deploying to Minikube.
+
+### GitHub Actions plugin 
+https://roadie.io/backstage/plugins/github-actions/
+
+## ArgoCD plugin
+https://roadie.io/backstage/plugins/argo-cd/
+
+## GitHub Insights plugin
+https://roadie.io/backstage/plugins/github-insights/
+
+## Grafana plugin
+https://roadie.io/docs/integrations/grafana/
+
+## GitHub Security Insights plugin ## ESTE NO SE SI REQUIERE TAMBEN EL DE LOGIN CON GITHUB. HAY   PROBARLO 
+https://www.kosli.com/blog/implementing-backstage-4-security-and-compliance/
+https://roadie.io/backstage/plugins/security-insights/
+
+## Homepage plugin
+https://backstage.io/docs/getting-started/homepage/ 
+https://www.kosli.com/blog/succeeding-with-backstage-part-1-customizing-the-look-and-feel-of-backstage/
+
+
+## Changed App Theme
+https://www.kosli.com/blog/succeeding-with-backstage-part-1-customizing-the-look-and-feel-of-backstage/
+
+</br>
+
+## Templates I've created
+
+### New Backstage System
+Creates a new Backstage System with the provided information. A System in Backstage is a collection of entities (services, resources, APIs, etc.) that cooperate to perform a some function. For example, we will have a System called "my-app" that includes the my-app-frontend service, the my-app-backend service, the my-app-redis database and the my-app-backend API.
+
+It generates a Pull Request which includes a new System manifest. When merged, the System catalog entity will be automatically added to the Backstage catalog by the GitHub Discovery plugin.
+
+</br>
+
+### New Backstage Group
+Creates a new Backstage group with the provided information. 
+
+It generates a Pull Request which includes a new Group manifest. When merged, the Group catalog entity will be automatically added to the Backstage catalog by the GitHub Discovery plugin.
+
+</br>
+
+### New Backstage User
+Creates a new Backstage user with the provided information. 
+
+It generates a Pull Request which includes a new User manifest. When merged, the User catalog entity will be automatically added to the Backstage catalog by the GitHub Discovery plugin.
+
+</br>
+
+### New Node.js in existing repo
+Creates all the boilerplate files and directories in an existing repo for deploying a new Node.js service in Kubernetes:
+1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
+2. The kubernetes manifests directory and files, which will be saved in [the k8s-manifests directory](/k8s-manifests/).
+RELAODED
+3. The [backend service argocd application manifests](/argo-cd/applications/my-app/backend/): These are read by the App of Apps to 
+3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
+
+It generates a Pull Request which includes all these files al directories.
+
+</br>
+
+### New NGINX in existing repo
+Creates all the boilerplate files and directories in an existing repo for deploying a new NGINX service in Kubernetes:
+1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
+2. The kubernetes manifests directory and files, which will be saved in [the k8s-manifests directory](/k8s-manifests/).
+RELAODED
+3. The [backend service argocd application manifests](/argo-cd/applications/my-app/backend/): These are read by the App of Apps to 
+3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
+
+It generates a Pull Request which includes all these files al directories.
+
+</br>
+
+## My Arbitrary Rules
+
+### App-config management 
+The app-config is the file that defines the Backstage configuration. You will find three instances of app-config:
+1. [The app-config.yaml file](/backstage/my-backstage/app-config.yaml): This is the config that will be used for development and testing purposes when running locally with `yarn dev` command.
+2. [The app-config.production.yaml file](/backstage/my-backstage/app-config.yaml): This is the config that will be used for building the Docker image that will be deployed in Minikube. You will notice that it's missing the catalog configuration. That's because the catalog configuration will be passed in through a ConfigMap.
+3. [The helm chart values-custom.yaml file](/backstage/helm-chart/values-custom.yaml): Since the catalog configuration is something that might need to be modified more often, I decided it should be specified in a ConfigMap and not hard coded into the Docker image. You can find the catalog configuration in the values-custom.yaml file of the Backstage helm chart. Helm will create a ConfigMap with these values and pass it in to the Backstage pod at the time of creation.
+
+</br>
+
+### Users and groups hierarchy
+I decided that user and group hierarchy should be defined from the bottom up. To me, it makes more sense that childs should keep track of their parents than parents of their childs.
+
+So we will not define the members of a group in the Group manifest, but we will define the group a user belongs to in the spec.memberOf of the User manifest. 
+
+Also, we will always have the spec.children value of Group manifests as an empty array and the spec.parent value filled with whoever the parent group of that group is. If it has no parent, the value of spec.parent should be "root".
 
 </br>
 </br>
 
-# RUN IN KUBERNETES ENVIRONMENT
 
-#### Build and push backstage container image to DockerHub
-To build and push the Docker image, run the build-push-image.sh script
+# RUN BACKSTAGE IN MINIKUBE
+Ok, lets run Backstage in Minikube. `Ctrl + C` to kill the `yarn dev` process.
+
+We first need to build and push the Backstage Docker image. Run the build-push-image.sh script:
 ```bash
 chmod +x build-push-image.sh
 ./build-push-image.sh
 ```
-
-#### Update image tag in backstage chart values
-Update the value of backstage.image.tag in the backstage values-custom.yaml
+RELOADED
+### Update image tag in backstage chart values
+Update the value of backstage.image.tag in the backstage values-custom.yaml 
 ```bash
 cd ../..
-vim helm/infra/backstage/values-custom.yaml
+vim backstage/helm-chart/values-custom.yaml
 ```
-
 Save and push to repo
 ```bash
 git add .
@@ -200,20 +294,37 @@ git commit -m "Updated backstage image tag"
 git push
 ```
 
-#### Minikube Environment Setup
-Run the start.sh script to get everything setup
+
+If you have a Minikube cluster running, delete it first with `minikube delete`.
+
+cd to the root of the repo:
 ```bash
-chmod +x backstage/deploy-k8s-environment.sh
-backstage/deploy-k8s-environment.sh
+cd ../..
 ```
+
+Now run the deploy-in-minikube.sh script to get everything setup:
+```bash
+chmod +x deploy-in-minikube.sh
+./deploy-in-minikube.sh
+```
+
+</br>
 
 Now go to localhost:8080 on your browser and Voilá!
 
 </br>
 </br>
 
+# CONCLUSION
+That's it! This is your own Backstage implementation now. 
 
-# EXCERCISE
+Feel free to add your own plugins, templates and whatever else you might think of. Customize to fit your own needs.
+
+For more DevOps and Platform Engineering goodness, check out my [Automate All The Things](https://github.com/tferrari92/automate-all-the-things) project.
+
+Happy automating!
+
+<!-- # EXCERCISE
 
 ## What we are starting off with
 We are starting off with a Redis database and a backend. Everytime the backend recieves a request it gets the value of "count" from the Redis db and returns it to the user. Before returning it, it adds +1 to "count".
@@ -360,4 +471,4 @@ If the only change you've made is to the app-config.yaml (or other configuration
 values custom de argo, ingress.enabled cambiado a false
 
 
-AGREGARLE DESCRIPTION AL REPO DE GHUB
+AGREGARLE DESCRIPTION AL REPO DE GHUB -->
