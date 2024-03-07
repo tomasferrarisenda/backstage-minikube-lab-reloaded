@@ -4,4 +4,4 @@ service: backend
 
 deployment:
   image:
-    repository: tferrari92/my-app-backend # This value was modified by the initial-setup python script
+    repository: tferrari92/my-app-backend # This value was modified by the initial-setup script
