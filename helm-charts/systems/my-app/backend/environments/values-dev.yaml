@@ -8,7 +8,6 @@ deployment:
   labels:
     environment: dev
     app: my-app-backend-dev
-    backstage.io/kubernetes-id: my-app-backend-dev
     
   env:
     redis_host: redis-dev-master 

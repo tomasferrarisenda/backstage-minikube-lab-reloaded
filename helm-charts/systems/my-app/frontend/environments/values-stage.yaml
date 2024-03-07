@@ -8,7 +8,6 @@ deployment:
   labels:
     environment: stage
     app: my-app-frontend-stage
-    backstage.io/kubernetes-id: my-app-frontend-stage
 
 configmap: 
   nginxConf: |-

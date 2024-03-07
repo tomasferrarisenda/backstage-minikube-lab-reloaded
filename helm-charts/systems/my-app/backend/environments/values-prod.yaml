@@ -8,7 +8,6 @@ deployment:
   labels:
     environment: prod
     app: my-app-backend-prod
-    backstage.io/kubernetes-id: my-app-backend-prod
 
   env:
     redis_host: redis-prod-master 
