@@ -6,6 +6,7 @@ metadata:
   annotations:
     backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-id: my-app-backend
+    github.com/project-slug: my-app-backend
   tags:
     - nodejs
   links:
