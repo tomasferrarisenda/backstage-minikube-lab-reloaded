@@ -163,7 +163,7 @@ I've already added some custom stuff to the default Backstage installation that 
 ## OAuth with GitHub
 A lot of the plug-ins I wanted to user required this.
 
-Login page can be added by uncommenting these lines in the [App.tsx file](/backstage/my-backstage/packages/app/src/App.tsx):
+Sign in page can be added by uncommenting these lines in the [App.tsx file](/backstage/my-backstage/packages/app/src/App.tsx):
 ```js
   // components: {
   //   SignInPage: props => (

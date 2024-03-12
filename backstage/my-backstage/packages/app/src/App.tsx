@@ -38,7 +38,7 @@ import { SignInPage } from '@backstage/core-components';
 
 const app = createApp({
   apis,
-  // UNCOMMENT THE FOLLOWING LINES TO ENABLE LOGIN PAGE
+  // UNCOMMENT THE FOLLOWING LINES TO ENABLE SIGN IN PAGE
   // components: {
   //   SignInPage: props => (
   //     <SignInPage
