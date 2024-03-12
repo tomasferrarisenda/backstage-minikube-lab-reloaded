@@ -182,6 +182,7 @@ You can check the automatic discovery configuration under catalog.providers.gith
 **IMPORTANT**: We use [app-config.yaml](/backstage/my-backstage/app-config.yaml) for local testing (when running `yarn dev`) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) when deploying to Minikube.
 
 ### GitHub Actions plugin 
+this actually cames by default but i added last runs to overview tab
 https://roadie.io/backstage/plugins/github-actions/
 
 ### ArgoCD plugin
