@@ -160,6 +160,9 @@ I've already added some custom stuff to the default Backstage installation that 
 
 </br>
 
+## OAuth with GitHub
+A lot of the plug-ins I wanted to user required this
+
 ## Plugins I've added
 
 ### Kubernetes plugin
