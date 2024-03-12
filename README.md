@@ -161,7 +161,9 @@ I've already added some custom stuff to the default Backstage installation that 
 </br>
 
 ## OAuth with GitHub
-A lot of the plug-ins I wanted to user required this
+A lot of the plug-ins I wanted to user required this.
+
+Login page can be added by uncommenting 
 
 </br>
 
@@ -184,7 +186,7 @@ You can check the automatic discovery configuration under catalog.providers.gith
 **IMPORTANT**: We use [app-config.yaml](/backstage/my-backstage/app-config.yaml) for local testing (when running `yarn dev`) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) when deploying to Minikube.
 
 ### GitHub Actions plugin 
-This one actually cames by default now, but I added Recent Workflow Runs to overview tab.
+This one actually cames by default now, but I added Recent Workflow Runs to overview tab. All workflows will be mixed up because we are using monorepo.
 https://roadie.io/backstage/plugins/github-actions/
 
 ### ArgoCD plugin
