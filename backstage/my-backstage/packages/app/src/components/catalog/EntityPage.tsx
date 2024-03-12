@@ -60,6 +60,8 @@ import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 
 // CUSTOM
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
+import { EntityRecentGithubActionsRunsCard } from '@backstage/plugin-github-actions';
+
 
 
 const techdocsContent = (
