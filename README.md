@@ -206,6 +206,7 @@ This one actually cames by default now, but I added Recent Workflow Runs to over
 https://roadie.io/backstage/plugins/github-actions/
 
 ### GitHub Insights plugin
+This lets you see the GitHub insights of the repo like what languages are used, who are the contributors and a preview of the README.
 https://roadie.io/backstage/plugins/github-insights/
 
 ### ArgoCD plugin
@@ -221,7 +222,6 @@ https://roadie.io/backstage/plugins/security-insights/
 ### Homepage plugin
 https://backstage.io/docs/getting-started/homepage/ 
 https://www.kosli.com/blog/succeeding-with-backstage-part-1-customizing-the-look-and-feel-of-backstage/
-
 
 ### Changed App Theme
 https://www.kosli.com/blog/succeeding-with-backstage-part-1-customizing-the-look-and-feel-of-backstage/
