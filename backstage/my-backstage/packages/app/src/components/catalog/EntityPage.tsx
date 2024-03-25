@@ -61,6 +61,14 @@ import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 // CUSTOM
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import { EntityRecentGithubActionsRunsCard } from '@backstage/plugin-github-actions';
+import {
+  EntityGithubInsightsContent,
+  EntityGithubInsightsLanguagesCard,
+  EntityGithubInsightsReadmeCard,
+  EntityGithubInsightsReleasesCard,
+  isGithubInsightsAvailable,
+} from '@roadiehq/backstage-plugin-github-insights';
+
 
 
 
@@ -130,23 +138,47 @@ const entityWarningContent = (
 const overviewContent = (
   <Grid container spacing={3} alignItems="stretch">
     {entityWarningContent}
+
+    {/* ABOUT */}
     <Grid item md={6}>
       <EntityAboutCard variant="gridItem" />
     </Grid>
+
+    {/* RELATIONS */}
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
 
+    {/* LINKS */}
     <Grid item md={4} xs={12}>
       <EntityLinksCard />
     </Grid>
+
+    {/* SUBCOMPONENTS */}
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
 
+    {/* RECENT WORKFLOW RUNS */}
     <Grid item sm={6}>
       <EntityRecentGithubActionsRunsCard limit={4} variant="gridItem" />
     </Grid>
+
+    {/* GITHUB INSIGHTS  */}
+    <EntitySwitch>
+      <EntitySwitch.Case if={e => Boolean(isGithubInsightsAvailable(e))}>
+
+        {/* README */}
+        <Grid item md={6}>
+          <EntityGithubInsightsReadmeCard maxHeight={350} />
+        </Grid>
+
+        {/* LANGUAGES */}
+        <Grid item md={6}>
+          <EntityGithubInsightsLanguagesCard />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
   </Grid>
 );
 
@@ -189,6 +221,10 @@ const serviceEntityPage = (
     {/* CUSTOM */}
     <EntityLayout.Route path="/kubernetes" title="Kubernetes">
       <EntityKubernetesContent refreshIntervalMs={30000} />
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/code-insights" title="Code Insights">
+      <EntityGithubInsightsContent />
     </EntityLayout.Route>
 
   </EntityLayout>
