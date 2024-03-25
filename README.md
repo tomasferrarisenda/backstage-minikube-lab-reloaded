@@ -133,7 +133,7 @@ Create these two repository secrets on your GitHub repo:
 ### Run locally
 Create env var for your GitHub token
 ```bash
-export GITHUB_TOKEN=<your-github-token>
+export GITHUB_TOKEN=<your-github-token> AUTH_GITHUB_CLIENT_ID=<your-github-auth-client-id> AUTH_GITHUB_CLIENT_SECRET=<your-github-auth-client-secret>
 ```
 
 Then run
@@ -205,11 +205,11 @@ You can check the automatic discovery configuration under catalog.providers.gith
 This one actually cames by default now, but I added Recent Workflow Runs to overview tab. All workflows will be mixed up because we are using monorepo.
 https://roadie.io/backstage/plugins/github-actions/
 
-### ArgoCD plugin
-https://roadie.io/backstage/plugins/argo-cd/
-
 ### GitHub Insights plugin
 https://roadie.io/backstage/plugins/github-insights/
+
+### ArgoCD plugin
+https://roadie.io/backstage/plugins/argo-cd/
 
 ### Grafana plugin
 https://roadie.io/docs/integrations/grafana/
