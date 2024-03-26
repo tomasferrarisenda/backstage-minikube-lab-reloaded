@@ -2,6 +2,8 @@
 
 # Prompt the user for their GitHub token
 read -p "Enter your GitHub token: " GITHUB_TOKEN
+read -p "Enter your GitHub auth cliend ID: " AUTH_GITHUB_CLIENT_ID
+read -p "Enter your GitHub auth client secret: " AUTH_GITHUB_CLIENT_SECRET
 # read -p "What image tag should be used for Backstage deployment?: " IMAGE_TAG
 
 # Start cluster. Extra beefy beause Backstage is a bit heavy.
@@ -38,6 +40,10 @@ kubectl create -n argocd -f argo-cd/self-manage/argocd-app-of-apps-application.y
 # We create the secret for the Github token with this command. This way the token won't get pushed to Github.
 kubectl create ns backstage
 kubectl create secret generic github-token -n backstage --from-literal=GITHUB_TOKEN="$GITHUB_TOKEN"
+kubectl create secret generic auth-github-client-id -n backstage --from-literal=AUTH_GITHUB_CLIENT_ID="$AUTH_GITHUB_CLIENT_ID"
+kubectl create secret generic auth-github-client-secret -n backstage --from-literal=AUTH_GITHUB_CLIENT_SECRET="$AUTH_GITHUB_CLIENT_SECRET"
+
+
 # Wait for the Postgres pod to be ready
 echo "Waiting for postgres pod to be ready..."
 until [[ $(kubectl -n backstage get pods -l "app.kubernetes.io/name=postgresql" -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == "True" ]]; do
