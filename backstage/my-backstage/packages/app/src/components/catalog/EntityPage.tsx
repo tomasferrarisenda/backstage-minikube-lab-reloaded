@@ -65,7 +65,7 @@ import {
   EntityGithubInsightsContent,
   EntityGithubInsightsLanguagesCard,
   EntityGithubInsightsReadmeCard,
-  EntityGithubInsightsReleasesCard,
+  // EntityGithubInsightsReleasesCard,
   isGithubInsightsAvailable,
 } from '@roadiehq/backstage-plugin-github-insights';
 
