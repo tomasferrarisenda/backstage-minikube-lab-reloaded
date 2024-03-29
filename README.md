@@ -117,11 +117,10 @@ Authorization callback URL	http://localhost:7007/api/auth/github/handler/frame
 
 save client id and secret in a safe fplace
 
-
 </br>
 
-# INITIAL SETUP
-In order to turn this whole deployment into your own thing, we need to do some initial setup:
+### Fork and clone the repo
+Let's turn this whole deployment into your own thing.
 
 1. Fork this repo. Keep the repository name "backstage-minikube-lab-reloaded".
 1. Clone the repo from your fork:
@@ -155,9 +154,16 @@ git push
 </br>
 
 # RUN BACKSTAGE LOCALLY
+Everything's ready to start playing with Backstage.
+
 Create env var for your GitHub token
 ```bash
 export GITHUB_TOKEN=<your-github-token> AUTH_GITHUB_CLIENT_ID=<your-github-auth-client-id> AUTH_GITHUB_CLIENT_SECRET=<your-github-auth-client-secret>
+```
+
+cd into my-backstage directory
+```bash
+cd backstage/my-backstage/
 ```
 
 Then run
@@ -168,9 +174,9 @@ yarn tsc
 yarn dev
 ```
 
-This should open Backstage in your browser on localhost:3000.
+Open your browser and go to localhost:3000. You should see the Backstage web UI.
 
-Every time you make changes to the Backstage code, it's recommended you test it by running it locally with "yarn dev", since it will be much faster that testing it in Minikube.
+Every time you make changes to the Backstage code, it's recommended you test it by running it locally with "yarn dev" like you just did. This will be much faster that testing every change in Minikube.
 
 </br>
 </br>
@@ -185,9 +191,9 @@ I've already added some custom stuff to the default Backstage installation that 
 </br>
 
 ## OAuth with GitHub
-A lot of the plug-ins I wanted to user required this.
+This allows the user to sign in using their GitHub account.
 
-Sign in page can be added by uncommenting these lines in the [App.tsx file](/backstage/my-backstage/packages/app/src/App.tsx):
+You can add a Sign in page by uncommenting these lines in the [App.tsx file](/backstage/my-backstage/packages/app/src/App.tsx):
 ```js
 // import { githubAuthApiRef } from '@backstage/core-plugin-api';
 // import { SignInPage } from '@backstage/core-components';
@@ -229,7 +235,7 @@ You can check the automatic discovery configuration under catalog.providers.gith
 **IMPORTANT**: We use [app-config.yaml](/backstage/my-backstage/app-config.yaml) for local testing (when running `yarn dev`) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) when deploying to Minikube.
 
 ### GitHub Actions plugin 
-This one actually cames by default now, but I added Recent Workflow Runs to overview tab. All workflows will be mixed up because we are using monorepo.
+This one actually cames by default, but I added "Recent Workflow Runs" card to the overview tab of Components. All workflows will be mixed up because we are using monorepo. If we had a repo for each service, then this would make a lot more sense.
 https://roadie.io/backstage/plugins/github-actions/
 
 ### GitHub Insights plugin
