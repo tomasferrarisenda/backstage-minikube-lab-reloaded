@@ -326,7 +326,11 @@ Also, we will always have the spec.children value of Group manifests as an empty
 # RUN BACKSTAGE IN MINIKUBE
 Ok, lets run Backstage in Minikube. `Ctrl + C` to kill the `yarn dev` process.
 
-We first need to build and push the Backstage Docker image. Run the build-push-image.sh script:
+We first need to build and push the Backstage Docker image. Login to Docker
+```bash
+docker login
+```
+Then run the build-push-image.sh script
 ```bash
 chmod +x build-push-image.sh
 ./build-push-image.sh

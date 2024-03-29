@@ -1,0 +1,1 @@
+hay q agregar enn app-config.production.yaml los sitios a los cuales necesita acceder apra traerse imagenes como los avatard e los usuaarios
