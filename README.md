@@ -56,40 +56,6 @@ We'll be using a GitOps methodology with Helm, ArgoCD and the App Of Apps Patter
 
 
 # INITIAL SETUP
-In order to turn this whole deployment into your own thing, we need to do some initial setup:
-
-1. Fork this repo. Keep the repository name "backstage-minikube-lab-reloaded".
-1. Clone the repo from your fork:
-
-```bash
-git clone https://github.com/<your-github-username>/backstage-minikube-lab-reloaded.git
-```
-
-2. Move into the directory:
-
-```bash
-cd backstage-minikube-lab-reloaded
-```
-
-2. Run the initial setup script. Come back when you are done:
-
-```bash
-chmod +x initial-setup.sh
-./initial-setup.sh
-```
-
-4. Commit and push your customized repo to GitHub:
-
-```bash
-git add .
-git commit -m "customized repo"
-git push
-```
-
-</br>
-</br>
-
-# RUN BACKSTAGE LOCALLY
 Before deploying Backstage in a Kubernetes environment (Minikube), we need to build it locally.
 
 Install nvm:
@@ -141,7 +107,6 @@ Create these two repository secrets on your GitHub repo:
 - DOCKER_PASSWORD: <your-dockerhub-password\>
 
 ### Set up GitHub OAuth
-
 https://github.com/settings/applications/new
 Application name	Backstage
 Homepage URL	http://localhost:3000/
@@ -152,7 +117,41 @@ save client id and secret in a safe fplace
 
 </br>
 
-### Run locally
+# INITIAL SETUP
+In order to turn this whole deployment into your own thing, we need to do some initial setup:
+
+1. Fork this repo. Keep the repository name "backstage-minikube-lab-reloaded".
+1. Clone the repo from your fork:
+
+```bash
+git clone https://github.com/<your-github-username>/backstage-minikube-lab-reloaded.git
+```
+
+2. Move into the directory:
+
+```bash
+cd backstage-minikube-lab-reloaded
+```
+
+2. Run the initial setup script. Come back when you are done:
+
+```bash
+chmod +x initial-setup.sh
+./initial-setup.sh
+```
+
+4. Commit and push your customized repo to GitHub:
+
+```bash
+git add .
+git commit -m "customized repo"
+git push
+```
+
+</br>
+</br>
+
+# RUN BACKSTAGE LOCALLY
 Create env var for your GitHub token
 ```bash
 export GITHUB_TOKEN=<your-github-token> AUTH_GITHUB_CLIENT_ID=<your-github-auth-client-id> AUTH_GITHUB_CLIENT_SECRET=<your-github-auth-client-secret>
