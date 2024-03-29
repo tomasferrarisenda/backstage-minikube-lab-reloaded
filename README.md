@@ -64,7 +64,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 ```
 
-Restart terminal and cd back into the repo. Install nodejs version 18
+Restart terminal and install nodejs version 18
 ```bash
 nvm install 18
 nvm use 18
@@ -355,6 +355,12 @@ chmod +x deploy-in-minikube.sh
 ```
 
 Now go to localhost:8080 on your browser and Voilá!
+
+You can also port-forward ArgoCD server to check everything is runnin fine:
+```bash
+chmod +x deploy-in-minikube.sh
+./deploy-in-minikube.sh
+```
 
 </br>
 </br>
