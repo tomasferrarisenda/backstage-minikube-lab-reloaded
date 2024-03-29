@@ -76,6 +76,17 @@ kubernetes:
           skipTLSVerify: false
           skipMetricsLookup: true
 
+proxy:
+  '/argocd/api':
+    target: https://localhost:8081/api/v1/
+    changeOrigin: true
+    # only if your argocd api has self-signed cert
+    secure: false
+    headers:
+      Cookie:
+        $env: 'argocd.token=argocdtoken'
+        # $env: ${ARGOCD_AUTH_TOKEN}
+
 ##########################################################################################
 # The Catalog configuration will be passed through a ConfigMap when deployed to Kubernetes.
 # Check the values-custom.yaml file in the Backstage helm-chart.

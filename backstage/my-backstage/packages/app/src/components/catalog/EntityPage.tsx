@@ -68,7 +68,10 @@ import {
   // EntityGithubInsightsReleasesCard,
   isGithubInsightsAvailable,
 } from '@roadiehq/backstage-plugin-github-insights';
-
+import {
+  EntityArgoCDOverviewCard,
+  isArgocdAvailable
+} from '@roadiehq/backstage-plugin-argo-cd';
 
 
 
@@ -168,7 +171,7 @@ const overviewContent = (
       </EntitySwitch.Case>
     </EntitySwitch>
 
-    {/* GITHUB INSIGHTS  */}
+    {/* GITHUB INSIGHTS */}
     <EntitySwitch>
       <EntitySwitch.Case if={e => Boolean(isGithubInsightsAvailable(e))}>
 
@@ -183,6 +186,16 @@ const overviewContent = (
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
+
+    {/* ARGOCD */}
+    <EntitySwitch>
+      <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
+        <Grid item sm={4}>
+          <EntityArgoCDOverviewCard />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
+
   </Grid>
 );
 

@@ -42,6 +42,7 @@
     "@backstage/theme": "^0.5.0",
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",
+    "@roadiehq/backstage-plugin-argo-cd": "^2.6.2",
     "@roadiehq/backstage-plugin-github-insights": "^2.3.27",
     "history": "^5.0.0",
     "react": "^18.0.2",

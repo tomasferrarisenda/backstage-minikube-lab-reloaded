@@ -7,6 +7,7 @@ metadata:
     backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-id: my-app-backend
     # github.com/project-slug: my-app-backend
+    argocd/app-name: my-app-backend-dev
     github.com/project-slug: tomasferrarisenda/backstage-minikube-lab-reloaded
   tags:
     - nodejs
