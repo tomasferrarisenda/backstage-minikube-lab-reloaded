@@ -50,6 +50,9 @@ We'll be using a GitOps methodology with Helm, ArgoCD and the App Of Apps Patter
 - minikube installed
 - kubectl installed
 - helm installed
+- nodejs installed
+- nvm installed
+- yarn installed
 
 </br>
 </br>
@@ -58,29 +61,29 @@ We'll be using a GitOps methodology with Helm, ArgoCD and the App Of Apps Patter
 # INITIAL SETUP
 Before deploying Backstage in a Kubernetes environment (Minikube), we need to build it locally.
 
-Install nvm:
+<!-- Install nvm:
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
-```
+``` -->
 
-Restart terminal and install nodejs version 18
+Make sure you are using Node.js version 18
 ```bash
 nvm install 18
 nvm use 18
 nvm alias default 18
 ```
-
+<!-- 
 Install nodejs and npm
 ```bash
 sudo apt update
 sudo apt install nodejs
 sudo apt install npm
-```
+``` -->
 
-Install yarn and dependencies:
+Make sure you are using Yarn version 1.22.19
 ```bash
-sudo npm install --global yarn
+# sudo npm install --global yarn
 yarn set version 1.22.19
 yarn --version
 # yarn global add concurrently

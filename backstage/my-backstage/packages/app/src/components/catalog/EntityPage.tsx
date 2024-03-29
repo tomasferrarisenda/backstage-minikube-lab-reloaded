@@ -160,9 +160,13 @@ const overviewContent = (
     </Grid>
 
     {/* RECENT WORKFLOW RUNS */}
-    <Grid item sm={6}>
-      <EntityRecentGithubActionsRunsCard limit={4} variant="gridItem" />
-    </Grid>
+    <EntitySwitch>
+      <EntitySwitch.Case if={isGithubActionsAvailable}>
+        <Grid item sm={6}>
+          <EntityRecentGithubActionsRunsCard limit={4} variant="gridItem" />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
 
     {/* GITHUB INSIGHTS  */}
     <EntitySwitch>
