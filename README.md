@@ -95,17 +95,29 @@ Before deploying Backstage in a Kubernetes environment (Minikube), we need to bu
 Install nvm:
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+```
+
+Restart terminal and cd back into the repo. Install nodejs version 18
+```bash
 nvm install 18
 nvm use 18
 nvm alias default 18
 ```
 
+Install nodejs and npm
+```bash
+sudo apt update
+sudo apt install nodejs
+sudo apt install npm
+```
+
 Install yarn and dependencies:
 ```bash
-npm install --global yarn
+sudo npm install --global yarn
 yarn set version 1.22.19
 yarn --version
-yarn global add concurrently
+# yarn global add concurrently
 ```
 </br>
 
@@ -127,6 +139,16 @@ This is only required if you intend to use GitHub workflows.
 Create these two repository secrets on your GitHub repo:
 - DOCKER_USERNAME: <your-dockerhub-username\>
 - DOCKER_PASSWORD: <your-dockerhub-password\>
+
+### Set up GitHub OAuth
+
+https://github.com/settings/applications/new
+Application name	Backstage
+Homepage URL	http://localhost:3000/
+Authorization callback URL	http://localhost:7007/api/auth/github/handler/frame
+
+save client id and secret in a safe fplace
+
 
 </br>
 
