@@ -38,10 +38,15 @@ kubectl create -n argocd -f argo-cd/self-manage/argocd-application.yaml
 kubectl create -n argocd -f argo-cd/self-manage/argocd-app-of-apps-application.yaml  
 
 # This is for the ArgoCD plugin. We need to get the ArgoCD token for the Backstage service account
-kubectl port-forward -n argocd service/argocd-server 8081:443
-argocd login localhost:8081 --plaintext  --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(argocd account generate-token --account backstage-service-account)
-ARGOCD_AUTH_TOKEN="argocd.token=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
+# We expose argocd on port 8081 in the background so we can then login to get the token
+kubectl port-forward -n argocd service/argocd-server 8081:443 &
+sleep 10
+argocd login localhost:8081 --plaintext --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+sleep 10
+export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(argocd account generate-token --account backstage-service-account)
+echo $BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN
+export ARGOCD_AUTH_TOKEN="argocd.token=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
+echo $ARGOCD_AUTH_TOKEN
 
 # We create the secret for every require env var. This way the secrets won't get pushed to Github.
 kubectl create ns backstage
