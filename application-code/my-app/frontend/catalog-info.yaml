@@ -7,8 +7,8 @@ metadata:
     backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-id: my-app-frontend
     github.com/project-slug: tomasferrarisenda/backstage-minikube-lab-reloaded
-    argocd/app-name: my-app-frontend-dev
-    # argocd/app-selector: system-service=my-app-frontend
+    # argocd/app-name: my-app-frontend-dev # This is for Backstage ArgoCD plugin 
+    argocd/app-selector: system-service=my-app-frontend # This is for Backstage ArgoCD plugin 
   tags:
     - nginx
   links:
