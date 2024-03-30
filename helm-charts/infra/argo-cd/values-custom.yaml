@@ -8,7 +8,10 @@ configs:
 
   # This is to make Sync Waves work in the App of Apps pattern (https://argo-cd.readthedocs.io/en/stable/operator-manual/upgrading/1.7-1.8/#health-assessment-of-argoprojioapplication-crd-has-been-removed)
   cm:
-    accounts.tferrari: apiKey, login
+    accounts.frontend: apiKey, login
+    accounts.backend: apiKey, login
+    accounts.database: apiKey, login
+
     resource.customizations.health.argoproj.io_Application: |
       hs = {}
       hs.status = "Progressing"
@@ -22,6 +25,11 @@ configs:
         end
       end
       return hs
+
+  secret:
+    accounts.frontend.password: "dGZlcnJhcmk=" echo -n "tferrari" | base64
+    accounts.frontend.passwordMtime: "" # echo -n "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" | base64
+    accounts.frontend.tokens: "YXJnb2NkLXRva2Vu" # echo -n "argocd-token" | base64
 
 # https://medium.com/@xgro/guide-to-integrating-argo-cd-with-github-oauth-bf1581ee461f
   #   dex.config: |
