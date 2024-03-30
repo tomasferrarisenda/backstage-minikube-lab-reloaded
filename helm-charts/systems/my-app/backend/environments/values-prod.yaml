@@ -10,4 +10,4 @@ deployment:
     app: my-app-backend-prod
 
   env:
-    redis_host: redis-prod-master 
+    redis_host: my-app-redis-prod-master 

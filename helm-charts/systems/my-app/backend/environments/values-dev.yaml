@@ -10,4 +10,4 @@ deployment:
     app: my-app-backend-dev
     
   env:
-    redis_host: redis-dev-master 
+    redis_host: my-app-redis-dev-master 
