@@ -1,6 +1,7 @@
 ## Argo Configs
 configs:
   # General Argo CD configuration
+  accounts.tferrari: apiKey, login
   params:
     ## Server properties
     # -- Run server without TLS
@@ -21,7 +22,22 @@ configs:
         end
       end
       return hs
-      
+
+# https://medium.com/@xgro/guide-to-integrating-argo-cd-with-github-oauth-bf1581ee461f
+  #   dex.config: |
+  #     connectors:
+  #        - type: github
+  #        id: github
+  #        name: GitHub
+  #        config:
+  #          clientID: ${AUTH_GITHUB_CLIENT_ID}
+  #          clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+  #          orgs:
+  #           - name: provisory # MODIFICAR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  #  rbac: 
+  #    policy.csv: |
+  #      g, org:admin, role:admin
+  #      g, org:backend, role:readonly # MODIFICAR!!!!!!!!!!!!!!!!!!!!!!!!!
 
 server:
   ingress:
