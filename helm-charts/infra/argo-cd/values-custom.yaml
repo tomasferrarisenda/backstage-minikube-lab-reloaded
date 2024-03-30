@@ -26,7 +26,7 @@ configs:
       end
       return hs
 
-  secret:
+  # secret:
     # extra:
     #   accounts.frontend.password: "dGZlcnJhcmk=" echo -n "tferrari" | base64
     #   accounts.frontend.passwordMtime: "" # echo -n "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" | base64
