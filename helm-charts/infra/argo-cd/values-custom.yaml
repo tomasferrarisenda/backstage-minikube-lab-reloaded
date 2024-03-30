@@ -26,6 +26,11 @@ configs:
       end
       return hs
 
+  rbac:
+    policy.csv: |
+      g, frontend, role:readonly
+      g, backend, role:readonly
+      g, database, role:readonly
   # ESTO NO SIRVE!!!!!!!!!!!!!!
   # secret:
   #   extra:
@@ -37,6 +42,7 @@ configs:
   #     accounts.backend.passwordMtime: MjAyNC0wMy0zMFQwMzowMToxNVo=
   #     accounts.backend.tokens: W3siaWQiOiI3NjM0OWUwMy0zZTA4LTQyZmYtYWZmNS0zNTIxNDA2NWU5OTAiLCJpYXQiOjE3MTE3Njg0NzZ9XQ==
 
+# PARA HACERLOGIN CON GITHUB
 # https://medium.com/@xgro/guide-to-integrating-argo-cd-with-github-oauth-bf1581ee461f
   #   dex.config: |
   #     connectors:

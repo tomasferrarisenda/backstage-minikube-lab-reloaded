@@ -252,7 +252,7 @@ QUIZAS AGREGAR TODOES ESTOS PASOS EN EL SCRIPT DE DEPLOY A MINIKUBE? SIGNIFICARI
 ```bash
 kubectl port-forward -n argocd service/argocd-server 8081:443
 argocd login localhost:8081 --plaintext  --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-argocd account generate-token --account backend
+export ARGOCD_TOKEN=$(argocd account generate-token --account backend)
 ```
 
 2. TENER USER CREADO. EL ADMIN NOPUEDE TENER TOKEN. EL USER PUEDE ESTAR CRREADO POR VALUES PERO:
