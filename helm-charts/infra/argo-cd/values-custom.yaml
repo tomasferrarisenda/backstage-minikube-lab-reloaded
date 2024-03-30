@@ -6,12 +6,8 @@ configs:
     # -- Run server without TLS
     server.insecure: true
 
-  # This is to make Sync Waves work in the App of Apps pattern (https://argo-cd.readthedocs.io/en/stable/operator-manual/upgrading/1.7-1.8/#health-assessment-of-argoprojioapplication-crd-has-been-removed)
   cm:
-    accounts.frontend: apiKey, login
-    accounts.backend: apiKey, login
-    accounts.database: apiKey, login
-
+    # This is to make Sync Waves work in the App of Apps pattern (https://argo-cd.readthedocs.io/en/stable/operator-manual/upgrading/1.7-1.8/#health-assessment-of-argoprojioapplication-crd-has-been-removed)
     resource.customizations.health.argoproj.io_Application: |
       hs = {}
       hs.status = "Progressing"
@@ -25,12 +21,18 @@ configs:
         end
       end
       return hs
+      
+    accounts.backstage-service-account: apiKey, login
+    # accounts.frontend: apiKey, login
+    # accounts.backend: apiKey, login
+    # accounts.database: apiKey, login
 
   rbac:
     policy.csv: |
-      g, frontend, role:readonly
-      g, backend, role:readonly
-      g, database, role:readonly
+      g, backstage-service-account, role:readonly
+      # g, frontend, role:readonly
+      # g, backend, role:readonly
+      # g, database, role:readonly
   # ESTO NO SIRVE!!!!!!!!!!!!!!
   # secret:
   #   extra:
