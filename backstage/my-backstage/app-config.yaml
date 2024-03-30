@@ -52,10 +52,9 @@ proxy:
   #     target: 'https://example.com'
   #     changeOrigin: true
 
-################################################################################
-################################################################################
-################################################################################  BORRAR!!!
-################################################################################
+  # This will only work if you already have a ArgoCD running in Minikube and have port-forwarded it to localhost:8081
+  # You will also need to generate a token in ArgoCD for the backstage-service-account user.
+  # This token must be set in the ARGOCD_AUTH_TOKEN environment variable before runninf 'yarn dev'
   '/argocd/api':
     target: http://localhost:8081/api/v1/
     changeOrigin: true

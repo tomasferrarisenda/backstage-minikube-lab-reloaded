@@ -37,12 +37,18 @@ kubectl create -n argocd -f argo-cd/self-manage/argocd-application.yaml
 # Finally, we create an application that will automatically deploy any ArgoCD Applications we specify in the argo-cd/applications directory (App of Apps pattern).
 kubectl create -n argocd -f argo-cd/self-manage/argocd-app-of-apps-application.yaml  
 
-# We create the secret for the Github token with this command. This way the token won't get pushed to Github.
+# This is for the ArgoCD plugin. We need to get the ArgoCD token for the Backstage service account
+kubectl port-forward -n argocd service/argocd-server 8081:443
+argocd login localhost:8081 --plaintext  --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(argocd account generate-token --account backstage-service-account)
+ARGOCD_AUTH_TOKEN="argocd.token=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
+
+# We create the secret for every require env var. This way the secrets won't get pushed to Github.
 kubectl create ns backstage
 kubectl create secret generic github-token -n backstage --from-literal=GITHUB_TOKEN="$GITHUB_TOKEN"
 kubectl create secret generic auth-github-client-id -n backstage --from-literal=AUTH_GITHUB_CLIENT_ID="$AUTH_GITHUB_CLIENT_ID"
 kubectl create secret generic auth-github-client-secret -n backstage --from-literal=AUTH_GITHUB_CLIENT_SECRET="$AUTH_GITHUB_CLIENT_SECRET"
-
+kubectl create secret generic argocd-auth-token -n backstage --from-literal=ARGOCD_AUTH_TOKEN="$ARGOCD_AUTH_TOKEN"
 
 # Wait for the Postgres pod to be ready
 echo "Waiting for postgres pod to be ready..."
