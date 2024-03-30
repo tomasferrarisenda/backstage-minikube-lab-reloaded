@@ -249,6 +249,12 @@ QUIZAS SIRVA USAR GITHUB OAUTH PARA ARGOCD??? https://github.com/settings/applic
 QUIZAS AGREGAR TODOES ESTOS PASOS EN EL SCRIPT DE DEPLOY A MINIKUBE? SIGNIFICARIA OBLIGAR AL USARIO A TENER INSTALADO ARGOCD CLI
 
 1. TENER DESPLEGADO ARGO
+```bash
+kubectl port-forward -n argocd service/argocd-server 8081:443
+argocd login localhost:8081 --plaintext  --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+argocd account generate-token --account backend
+```
+
 2. TENER USER CREADO. EL ADMIN NOPUEDE TENER TOKEN. EL USER PUEDE ESTAR CRREADO POR VALUES PERO:
 3. CREAR PASS DEL USER CON ARGOCLI
 4. CREAR TOKEN PARA EL USER CON ARGOCLI. ES AUTOGENERADO, NO LO PODEMOS PONER EL VALOR Q QUERRAMOS
