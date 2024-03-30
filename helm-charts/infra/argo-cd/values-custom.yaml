@@ -29,7 +29,9 @@ configs:
   secret:
     extra:
       accounts.frontend.password: "ZnJvbnRlbmQ=" # echo -n "frontend" | base64
-      accounts.frontend.passwordMtime: "MjAyNC0wMy0zMFQwMjo0Mzo1OFo=" 
+      # accounts.frontend.passwordMtime: "MjAyNC0wMy0zMFQwMjo0Mzo1OFo=" 
+      
+      # Unable to load data: parsing time "MjAyNC0wMy0zMFQwMjo0Mzo1OFo=" as "2006-01-02T15:04:05Z07:00": cannot parse "MjAyNC0wMy0zMFQwMjo0Mzo1OFo=" as "2006"
       accounts.frontend.tokens: "YXJnb2NkLXRva2Vu" # echo -n "argocd-token" | base64
 
 # https://medium.com/@xgro/guide-to-integrating-argo-cd-with-github-oauth-bf1581ee461f
