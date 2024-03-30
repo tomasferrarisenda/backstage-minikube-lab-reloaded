@@ -243,6 +243,12 @@ This lets you see the GitHub insights of the repo like what languages are used, 
 https://roadie.io/backstage/plugins/github-insights/
 
 ### ArgoCD plugin
+PARA Q ESTO FUNCIONE HAY Q 
+1. TENER DESPLEGADO ARGO
+2. TENER USER CREADO. EL ADMIN NOPUEDE TENER TOKEN. EL USER PUEDE ESTAR CRREADO POR VALUES PERO:
+3. CREAR PASS DEL USER CON ARGOCLI
+4. CREAR TOKEN PARA EL USER CON ARGOCLI. ES AUTOGENERADO, NO LO PODEMOS PONER EL VALOR Q QUERRAMOS
+5. 
 https://roadie.io/backstage/plugins/argo-cd/
 
 ### Grafana plugin

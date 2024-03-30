@@ -84,12 +84,14 @@ proxy:
     secure: false
     headers:
       Cookie:
-        $env: 'argocd.token=argocdtoken'
-        # $env: ${ARGOCD_AUTH_TOKEN}
+        $env: ARGOCD_AUTH_TOKEN
+        # ARGOCD_AUTH_TOKEN="argocd.token=<auth-token>"
 
 # optional: this will link to your argoCD web UI for each argoCD application
 argocd:
   baseUrl: https://localhost:8081/
+
+  
 ##########################################################################################
 # The Catalog configuration will be passed through a ConfigMap when deployed to Kubernetes.
 # Check the values-custom.yaml file in the Backstage helm-chart.
