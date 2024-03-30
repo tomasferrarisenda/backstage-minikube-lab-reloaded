@@ -78,18 +78,17 @@ kubernetes:
 
 proxy:
   '/argocd/api':
-    target: https://localhost:8081/api/v1/
+    target: http://argocd-server.argocd.svc.cluster.local/api/v1/
     changeOrigin: true
     # only if your argocd api has self-signed cert
     secure: false
     headers:
       Cookie:
         $env: ARGOCD_AUTH_TOKEN
-        # ARGOCD_AUTH_TOKEN="argocd.token=<auth-token>"
 
 # optional: this will link to your argoCD web UI for each argoCD application
-argocd:
-  baseUrl: https://localhost:8081/
+# argocd:
+#   baseUrl: https://localhost:8081/
 
   
 ##########################################################################################

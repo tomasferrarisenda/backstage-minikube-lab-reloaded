@@ -64,8 +64,6 @@ proxy:
     headers:
       Cookie:
         $env: ARGOCD_AUTH_TOKEN
-        # $env: 'argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJiYWNrZW5kOmFwaUtleSIsIm5iZiI6MTcxMTc2ODQ3NiwiaWF0IjoxNzExNzY4NDc2LCJqdGkiOiI3NjM0OWUwMy0zZTA4LTQyZmYtYWZmNS0zNTIxNDA2NWU5OTAifQ.y-igyebhloYTPNTRRSQB3AqzFzXWTblK4XN5mKmwB48'
-        # ARGOCD_AUTH_TOKEN="argocd.token=<auth-token>"
 
 # optional: this will link to your argoCD web UI for each argoCD application
 # argocd:
