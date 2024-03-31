@@ -86,9 +86,9 @@ proxy:
       Cookie:
         $env: ARGOCD_AUTH_TOKEN
 
-# optional: this will link to your argoCD web UI for each argoCD application
+# Optional: this will link to your argoCD web UI for each argoCD application
 # argocd:
-#   baseUrl: https://localhost:8081/
+#   baseUrl: http://localhost:8081/
 
   
 ##########################################################################################

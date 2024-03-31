@@ -64,14 +64,9 @@ proxy:
       Cookie:
         $env: ARGOCD_AUTH_TOKEN
 
-# optional: this will link to your argoCD web UI for each argoCD application
-# argocd:
-#   baseUrl: https://localhost:8081/
-################################################################################
-################################################################################
-################################################################################
-################################################################################
-
+# Optional: this will link to your argoCD web UI for each argoCD application
+argocd:
+  baseUrl: http://localhost:8081/
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
