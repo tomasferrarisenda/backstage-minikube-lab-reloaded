@@ -244,16 +244,16 @@ The [ArgoCD plugin](https://roadie.io/backstage/plugins/argo-cd/) will display (
 ### Grafana plugin
 https://roadie.io/docs/integrations/grafana/
 
-### GitHub Security Insights plugin 
-https://www.kosli.com/blog/implementing-backstage-4-security-and-compliance/
-https://roadie.io/backstage/plugins/security-insights/
-
 ### Homepage plugin
 https://backstage.io/docs/getting-started/homepage/ 
 https://www.kosli.com/blog/succeeding-with-backstage-part-1-customizing-the-look-and-feel-of-backstage/
 
 ### Changed App Theme
 https://www.kosli.com/blog/succeeding-with-backstage-part-1-customizing-the-look-and-feel-of-backstage/
+
+<!-- ### GitHub Security Insights plugin 
+https://www.kosli.com/blog/implementing-backstage-4-security-and-compliance/
+https://roadie.io/backstage/plugins/security-insights/ -->
 
 </br>
 
