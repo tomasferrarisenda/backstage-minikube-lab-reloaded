@@ -40,6 +40,18 @@ configs:
     ## `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'`
     argocdServerAdminPassword: "$2a$10$0vz/zfXVeaLyOZkGQO6tgO15gOSf6P.zCpsLvJ8slkrOQe.Wq42W." # admin
 
+    extra:
+      ## Argo expects the password in the secret to be bcrypt hashed. You can create this hash with
+      ## `htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'`
+      accounts.backstage-service-account.password: "$2a$10$dcoQrqTuhzk4VTLpehzmjOL29zSba8w/08rLGbiXiqbYGGEZMYJBu" # backstage
+  #     accounts.frontend.password: ZnJvbnRlbmQ= # echo -n "frontend" | base64
+  #     accounts.frontend.passwordMtime: "MjAyNC0wMy0zMFQwMjo0Mzo1OFo=" 
+  #     accounts.frontend.tokens: YXJnb2NkLXRva2Vu # echo -n "argocd-token" | base64
+
+  #     accounts.backend.password: JDJhJDEwJGlYUHVrTVMwbG5lY2poS21YZnJxYS40c1V5ZGtwUzNuUHpEdmppTjRXNDhHT204QkRmbktP
+  #     accounts.backend.passwordMtime: MjAyNC0wMy0zMFQwMzowMToxNVo=
+  #     accounts.backend.tokens: W3siaWQiOiI3NjM0OWUwMy0zZTA4LTQyZmYtYWZmNS0zNTIxNDA2NWU5OTAiLCJpYXQiOjE3MTE3Njg0NzZ9XQ==
+
 server:
   ingress:
     enabled: false
