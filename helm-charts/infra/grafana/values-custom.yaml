@@ -16,7 +16,7 @@ adminPassword: admin
 #     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
 #   }
 #   hosts: []
-  
+ 
 datasources:
   datasources.yaml:
     apiVersion: 1
