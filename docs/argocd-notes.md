@@ -1,4 +1,4 @@
-# HOW DO WE IMPLEMENT IT AT ? (PART 1)
+# HOW DO WE IMPLEMENT IT? (PART 1)
 Introduction
 In our  cluster, we have deployed ArgoCD. The ArgoCD applications monitor the repository k8s-infra-tools-helm-charts on Azure DevOps.
 
@@ -12,8 +12,6 @@ Explainer video on Helm
 As you can see, in the repository there is also an "argo-cd" directory. In ArgoCD, we create an application that monitors this directory where the ArgoCD Helm Chart is located. This means that ArgoCD is watching over itself.
 
 If we wanted, for example, to add a new Ingress for ArgoCD, we would make the necessary changes within this directory, ArgoCD would identify the changes and apply them, effectively monitoring and operating itself.
-
-
 
 ## Modification of Helm charts
 When using Helm charts, it's important never to modify the original chart files.
@@ -112,7 +110,7 @@ Continuing with the example of Jenkins, all we need to do to remove the Jenkins 
 The master application in our App of Apps pattern will detect the absence of the Jenkins application and will trigger the necessary steps to remove Jenkins from the cluster.
 Although it is not necessary, we should also delete the Jenkins directory in the repo https:/k8s-infra-tools-helm-charts for the sake of order and neatness.
 
-# Users and tokens
+# USERS AND TOKENS
 Users and their passwords can be created through GitOps as it can be seen in the [values-custom.yaml](/helm-charts/infra/argo-cd/values-custom.yaml). 
 
-API tokens must be created through argocd cli. Admin user cannot issue tokens. A user doesn't need to have a password to issue a token, in othe words, users that have no password can still issue tokens.
+API tokens must be created through argocd cli. Admin user cannot issue tokens. A user doesn't need to have a password to issue a token, in othe words, users that have no password can still issue tokens. You can see how to issue a token with argocd cli in the [deploy-in-minikube.sh script](/deploy-in-minikube.sh).
