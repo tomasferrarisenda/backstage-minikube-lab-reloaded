@@ -44,9 +44,17 @@ sleep 10
 argocd login localhost:8081 --plaintext --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 sleep 10
 export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(argocd account generate-token --account backstage-service-account)
-echo "BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
+# echo "BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
 export ARGOCD_AUTH_TOKEN="argocd.token=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
+echo "#############################################################################"
+echo "#############################################################################"
+echo "#############################################################################"
+echo " "
 echo "ARGOCD_AUTH_TOKEN=$ARGOCD_AUTH_TOKEN"
+echo " "
+echo "#############################################################################"
+echo "#############################################################################"
+echo "#############################################################################"
 
 # We create the secret for every require env var. This way the secrets won't get pushed to Github.
 kubectl create ns backstage
