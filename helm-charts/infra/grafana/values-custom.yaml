@@ -16,7 +16,11 @@ adminPassword: admin
 #     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
 #   }
 #   hosts: []
- 
+
+grafana.ini:
+  allow_embedding: true
+  cookie_samesite: none
+  
 datasources:
   datasources.yaml:
     apiVersion: 1
