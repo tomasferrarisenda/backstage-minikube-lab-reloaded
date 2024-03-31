@@ -48,6 +48,7 @@ configs:
       accounts.backend.password: '$2a$10$IaI7yXLoWiQ.XlzZmAUxFOhEWgK8Fm21bZ/vtUBufK9yZnt7EUsri' # backend
       accounts.database.password: '$2a$10$4NRIsDFel0OaYPy9bAgedeycShVrK2kTNUap4TzHoFm1bUpjuE/z2' # database
 
+      accounts.frontend.tokens: '$2a$10$dcoQrqTuhzk4VTLpehzmjOL29zSba8w/08rLGbiXiqbYGGEZMYJBu' # backstage
 
 server:
   ingress:
