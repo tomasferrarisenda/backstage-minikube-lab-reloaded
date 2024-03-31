@@ -82,12 +82,12 @@ sudo apt install npm
 ``` -->
 
 Make sure you are using Yarn version 1.22.19
+<!-- # sudo npm install --global yarn -->
 ```bash
-# sudo npm install --global yarn
 yarn set version 1.22.19
 yarn --version
-# yarn global add concurrently
 ```
+<!-- # yarn global add concurrently -->
 </br>
 
 ### Get GitHub PAT (Personal Access Token)
