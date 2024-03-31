@@ -1,22 +1,15 @@
-# HOW DO WE IMPLEMENT IT? (PART 1)
-Introduction
-In our  cluster, we have deployed ArgoCD. The ArgoCD applications monitor the repository k8s-infra-tools-helm-charts on Azure DevOps.
-
-In this repository, we have a directory for each tool to deploy, for example, AWX has its directory "awx-operator". Within these directories, there can be individual manifests, or the tool's Helm chart.
-
-To access the ArgoCD web UI, we can go to
-
-Explainer video on Helm
-
-## ArgoCD is self-managing.
-As you can see, in the repository there is also an "argo-cd" directory. In ArgoCD, we create an application that monitors this directory where the ArgoCD Helm Chart is located. This means that ArgoCD is watching over itself.
+# ARGOCD IS SELF-MANAGING
+As you can see, in the repository under helm-charts directory there's an ["argo-cd" directory](/helm-charts/infra/argo-cd/). There's also an [application.yaml](/argo-cd/self-manage/argocd-application.yaml) that points to this directory where the ArgoCD Helm Chart is located. This means that ArgoCD is managing itself.
 
 If we wanted, for example, to add a new Ingress for ArgoCD, we would make the necessary changes within this directory, ArgoCD would identify the changes and apply them, effectively monitoring and operating itself.
 
-## Modification of Helm charts
+# CUSTOMIZING HELM CHARTS
 When using Helm charts, it's important never to modify the original chart files.
+
 If we need to make changes, we will do so in the values-custom.yaml file, never in the original values.yaml. This way, we ensure an easy record of the changes we made and what the original chart configurations are.
+
 The ArgoCD applications we create are configured to fetch the custom values and prioritize them over the default values.
+
 If, for some reason, making changes in the values-custom.yaml is not enough to achieve the results we are looking for, we can create new manifests within the chart's “templates” directory, but we will always save these new manifests within the “templates-custom” subdirectory inside templates. This serves the same purpose as the values-custom, keeping track of which changes are ours and what the original configurations are.
 
 ## Creating new ArgoCD applications
