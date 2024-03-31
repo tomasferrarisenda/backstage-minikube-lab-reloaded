@@ -223,8 +223,6 @@ The [Kubernetes plugin](https://backstage.io/docs/features/kubernetes/) in Backs
 
 It will elevate the visibility of errors where identified, and provide drill down about the deployments, pods, and other objects for a service.
 
-</br>
-
 ### GitHub Discovery plugin 
 The [GitHub Discovery plugin](https://backstage.io/docs/integrations/github/discovery) automatically discovers catalog entities within a GitHub organization. The provider will crawl the GitHub organization and register entities matching the configured path. This can be useful as an alternative to static locations or manually adding things to the catalog. This is the preferred method for ingesting entities into the catalog.
 
@@ -235,37 +233,18 @@ You can check the automatic discovery configuration under catalog.providers.gith
 **IMPORTANT**: We use [app-config.yaml](/backstage/my-backstage/app-config.yaml) for local testing (when running `yarn dev`) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) when deploying to Minikube.
 
 ### GitHub Actions plugin 
-This one actually cames by default, but I added "Recent Workflow Runs" card to the overview tab of Components. All workflows will be mixed up because we are using monorepo. If we had a repo for each service, then this would make a lot more sense.
-https://roadie.io/backstage/plugins/github-actions/
+The [GitHub Actions plugin](https://roadie.io/backstage/plugins/github-actions/) actually cames by default, but I added "Recent Workflow Runs" card to the overview tab of Components. All workflows will be mixed up because we are using monorepo. If we had a repo for each service, then this would make a lot more sense.
 
 ### GitHub Insights plugin
-This lets you see the GitHub insights of the repo like what languages are used, who are the contributors and a preview of the README.
-https://roadie.io/backstage/plugins/github-insights/
+The [GitHub Insights plugin](https://roadie.io/backstage/plugins/github-insights/) lets you see the GitHub insights of the repo like what languages are used, who are the contributors and a preview of the README.
 
 ### ArgoCD plugin
-PARA Q ESTO FUNCIONE HAY Q TENER YA CORRIENDO UNA INSTANCIA DE ARGOCD LA CUAL TEGA UN USUARIO CON PASS Y TOKEN EL CUAL SERA AGREGADO A LA CONFIG DE BACKSTAGE
-
-QUIZAS SIRVA USAR GITHUB OAUTH PARA ARGOCD??? https://github.com/settings/applications/2528343
-QUIZAS AGREGAR TODOES ESTOS PASOS EN EL SCRIPT DE DEPLOY A MINIKUBE? SIGNIFICARIA OBLIGAR AL USARIO A TENER INSTALADO ARGOCD CLI
-
-1. TENER DESPLEGADO ARGO
-```bash
-kubectl port-forward -n argocd service/argocd-server 8081:443
-argocd login localhost:8081 --plaintext  --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(argocd account generate-token --account backstage-service-account)
-export ARGOCD_AUTH_TOKEN="argocd.token=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
-```
-
-2. TENER USER CREADO. EL ADMIN NOPUEDE TENER TOKEN. EL USER PUEDE ESTAR CRREADO POR VALUES PERO:
-3. CREAR PASS DEL USER CON ARGOCLI
-4. CREAR TOKEN PARA EL USER CON ARGOCLI. ES AUTOGENERADO, NO LO PODEMOS PONER EL VALOR Q QUERRAMOS
-5. 
-https://roadie.io/backstage/plugins/argo-cd/
+The [ArgoCD plugin](https://roadie.io/backstage/plugins/argo-cd/) will display (on the Overview tab of each component) the state of all ArgoCD applications related to it.
 
 ### Grafana plugin
 https://roadie.io/docs/integrations/grafana/
 
-### GitHub Security Insights plugin ## ESTE NO SE SI REQUIERE TAMBEN EL DE LOGIN CON GITHUB. HAY   PROBARLO 
+### GitHub Security Insights plugin 
 https://www.kosli.com/blog/implementing-backstage-4-security-and-compliance/
 https://roadie.io/backstage/plugins/security-insights/
 
