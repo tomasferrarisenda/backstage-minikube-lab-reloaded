@@ -111,3 +111,8 @@ This example leaves the project completely open, but if we wanted to limit it, w
 Continuing with the example of Jenkins, all we need to do to remove the Jenkins deployment from the cluster is to delete the jenkins-application.yaml file in the repo httpst/argocd-application-manifests.
 The master application in our App of Apps pattern will detect the absence of the Jenkins application and will trigger the necessary steps to remove Jenkins from the cluster.
 Although it is not necessary, we should also delete the Jenkins directory in the repo https:/k8s-infra-tools-helm-charts for the sake of order and neatness.
+
+# Users and tokens
+Users and their passwords can be created through GitOps as it can be seen in the [values-custom.yaml](/helm-charts/infra/argo-cd/values-custom.yaml). 
+
+API tokens must be created through argocd cli. Admin user cannot issue tokens. A user doesn't need to have a password to issue a token, in othe words, users that have no password can still issue tokens.
