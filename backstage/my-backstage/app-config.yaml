@@ -64,9 +64,26 @@ proxy:
       Cookie:
         $env: ARGOCD_AUTH_TOKEN
 
+  '/grafana/api':
+    # May be a public or an internal DNS
+    target: http://localhost:8082/
+    headers:
+      Authorization: Bearer glsa_ipIOBSL2aCX19FGb7ThiCdXBkMYiFDZR_2f47476d
+      # Authorization: Bearer ${GRAFANA_TOKEN}
+
 # Optional: this will link to your argoCD web UI for each argoCD application
 argocd:
   baseUrl: http://localhost:8081/
+
+grafana:
+  # Publicly accessible domain
+  domain: http://localhost:8082/
+
+  # Is unified alerting enabled in Grafana?
+  # See: https://grafana.com/blog/2021/06/14/the-new-unified-alerting-system-for-grafana-everything-you-need-to-know/
+  # Optional. Default: false
+  unifiedAlerting: false
+
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs

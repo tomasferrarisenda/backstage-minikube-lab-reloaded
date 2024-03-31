@@ -72,7 +72,9 @@ import {
   EntityArgoCDOverviewCard,
   isArgocdAvailable
 } from '@roadiehq/backstage-plugin-argo-cd';
-
+import {
+  EntityOverviewDashboardViewer,
+} from '@k-phoen/backstage-plugin-grafana';
 
 
 const techdocsContent = (
@@ -195,6 +197,11 @@ const overviewContent = (
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
+
+    {/* GRAFANA */}
+    <Grid item md={6}>
+      <EntityOverviewDashboardViewer />
+    </Grid>
 
   </Grid>
 );
