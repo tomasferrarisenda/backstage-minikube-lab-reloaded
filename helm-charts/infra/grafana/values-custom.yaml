@@ -1,5 +1,5 @@
 # Specify your own password for Grafana UI here
-adminPassword: admin
+adminPassword: automate-all-the-things
 
 # ingress:
 #   enabled: true
@@ -20,7 +20,7 @@ adminPassword: admin
 grafana.ini:
   allow_embedding: true
   cookie_samesite: none
-  
+
 datasources:
   datasources.yaml:
     apiVersion: 1
