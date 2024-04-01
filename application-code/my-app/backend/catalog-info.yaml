@@ -9,7 +9,7 @@ metadata:
     github.com/project-slug: tomasferrarisenda/backstage-minikube-lab-reloaded
     # argocd/app-name: my-app-backend-dev # This is for Backstage ArgoCD plugin 
     argocd/app-selector: system-service=my-app-backend # This is for Backstage ArgoCD plugin 
-    grafana/overview-dashboard: 'http://localhost:8082/d/k8s_views_pods/kubernetes-views-pods?orgId=1&refresh=30s&var-datasource=Prometheus&var-namespace=my-app-dev&var-pod=my-app-backend-dev-deployment-f5c744979-7ph2z&var-resolution=30s'
+    grafana/overview-dashboard: 'http://localhost:8082/d/k8s_views_pods/kubernetes-views-pods?orgId=1&var-datasource=Prometheus&var-namespace=my-app-dev&var-pod=my-app-backend-dev-deployment-f5c744979-7ph2z'
     # grafana/overview-dashboard: 'https://fr.wikipedia.org/wiki/Main_Page'
   tags:
     - nodejs
