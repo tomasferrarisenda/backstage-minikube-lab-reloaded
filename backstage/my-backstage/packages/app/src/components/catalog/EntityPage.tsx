@@ -73,9 +73,9 @@ import {
   isArgocdAvailable
 } from '@roadiehq/backstage-plugin-argo-cd';
 import {
+  EntityGrafanaDashboardsCard,
   EntityOverviewDashboardViewer,
 } from '@k-phoen/backstage-plugin-grafana';
-
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -201,6 +201,9 @@ const overviewContent = (
     {/* GRAFANA */}
     <Grid item md={6}>
       <EntityOverviewDashboardViewer />
+    </Grid>
+    <Grid item md={6}>
+      <EntityGrafanaDashboardsCard />
     </Grid>
 
   </Grid>
