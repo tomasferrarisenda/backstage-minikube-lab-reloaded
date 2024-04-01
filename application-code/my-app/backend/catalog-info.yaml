@@ -13,7 +13,7 @@ metadata:
     # The following selector will return dashboards that have a my-service or a my-service-slo tag and have a generated tag.
     # grafana/dashboard-selector: "(tags @> 'my-service' || tags @> 'my-service-slo') && tags @> 'generated'"
     # grafana/dashboard-selector: "(tags @> 'Kubernetes' || tags @> 'Prometheus' || tags @> 'probando')" # FUNCIONA!!
-    grafana/dashboard-selector: "tags @> 'probando'" # FUNCIONA!!
+    grafana/dashboard-selector: "tags @> 'linux'" # FUNCIONA!!
     # grafana/overview-dashboard: 'http://localhost:8082/d-solo/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&from=1711929938081&to=1711933538081&panelId=77'
     # grafana/overview-dashboard: 'https://fr.wikipedia.org/wiki/Main_Page'
   tags:
