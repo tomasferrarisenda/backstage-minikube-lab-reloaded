@@ -27,6 +27,11 @@ backstage:
         secretKeyRef:
           name: argocd-auth-token
           key: ARGOCD_AUTH_TOKEN
+    - name: GRAFANA_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: grafana-token
+          key: GRAFANA_TOKEN
 
 
   appConfig:

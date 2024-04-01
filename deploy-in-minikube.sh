@@ -4,7 +4,6 @@
 read -p "Enter your GitHub token: " GITHUB_TOKEN
 read -p "Enter your GitHub auth cliend ID: " AUTH_GITHUB_CLIENT_ID
 read -p "Enter your GitHub auth client secret: " AUTH_GITHUB_CLIENT_SECRET
-# read -p "What image tag should be used for Backstage deployment?: " IMAGE_TAG
 
 # Start cluster. Extra beefy beause Backstage is a bit heavy.
 minikube start --cpus 4 --memory 4096
@@ -56,9 +55,16 @@ echo "##########################################################################
 echo "#############################################################################"
 echo "#############################################################################"
 
+# Wait for the Grafana pod to be ready
+echo "Waiting for Grafana pod to be ready..."
+until [[ $(kubectl -n observability get pods -l "app.kubernetes.io/name=grafana" -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == "True" ]]; do
+  echo "Waiting for Grafana pod to be ready... It's required to get the token for the Backstage Grafana plugin"
+  sleep 3 
+done
 # Create Backstage service account in grafana.
-# Authoriation is user:password base64 encoded. In this case "admin:automate-all-the-things"
+# Authorization is "user:password" base64 encoded. In this case "admin:automate-all-the-things"
 kubectl port-forward -n observability service/grafana 8082:80 &
+sleep 5
 curl -X POST 'http://localhost:8082/api/serviceaccounts' \
      -H 'Accept: application/json' \
      -H 'Content-Type: application/json' \
@@ -76,27 +82,25 @@ export GRAFANA_TOKEN=$(curl -X POST 'http://localhost:8082/api/serviceaccounts/2
                                    "name": "backstage-token"
                                  }' | grep -Po '"key":"\K.*?(?=")')
 
-kubectl create secret generic grafana-token -n backstage --from-literal=GRAFANA_TOKEN="$GRAFANA_TOKEN"
-
-
-# We create the secret for every require env var. This way the secrets won't get pushed to Github.
+# We create the secret for every required env var. This way the secrets won't get pushed to Github.
 kubectl create ns backstage
-kubectl create secret generic github-token -n backstage --from-literal=GITHUB_TOKEN="$GITHUB_TOKEN"
-kubectl create secret generic auth-github-client-id -n backstage --from-literal=AUTH_GITHUB_CLIENT_ID="$AUTH_GITHUB_CLIENT_ID"
-kubectl create secret generic auth-github-client-secret -n backstage --from-literal=AUTH_GITHUB_CLIENT_SECRET="$AUTH_GITHUB_CLIENT_SECRET"
-kubectl create secret generic argocd-auth-token -n backstage --from-literal=ARGOCD_AUTH_TOKEN="$ARGOCD_AUTH_TOKEN"
+kubectl create secret generic -n backstage github-token --from-literal=GITHUB_TOKEN="$GITHUB_TOKEN"
+kubectl create secret generic -n backstage auth-github-client-id --from-literal=AUTH_GITHUB_CLIENT_ID="$AUTH_GITHUB_CLIENT_ID"
+kubectl create secret generic -n backstage auth-github-client-secret --from-literal=AUTH_GITHUB_CLIENT_SECRET="$AUTH_GITHUB_CLIENT_SECRET"
+kubectl create secret generic -n backstage argocd-auth-token --from-literal=ARGOCD_AUTH_TOKEN="$ARGOCD_AUTH_TOKEN"
+kubectl create secret generic -n backstage grafana-token --from-literal=GRAFANA_TOKEN="$GRAFANA_TOKEN"
 
 # Wait for the Postgres pod to be ready
 echo "Waiting for postgres pod to be ready..."
 until [[ $(kubectl -n backstage get pods -l "app.kubernetes.io/name=postgresql" -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == "True" ]]; do
-  echo "Waiting for postgres pod to be ready... It's required for backstage to start."
+  echo "Waiting for Postgres pod to be ready... It's required for backstage to start."
   sleep 3
 done
 
 # Wait for the Backstage pod to be ready
 echo "Waiting for backstage pod to be ready..."
 until [[ $(kubectl -n backstage get pods -l "app.kubernetes.io/name=backstage" -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') == "True" ]]; do
-  echo "Waiting for backstage pod to be ready..."
+  echo "Waiting for Backstage pod to be ready..."
   sleep 3
 done
 
