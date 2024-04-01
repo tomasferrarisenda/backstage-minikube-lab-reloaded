@@ -56,6 +56,29 @@ echo "##########################################################################
 echo "#############################################################################"
 echo "#############################################################################"
 
+# Create Backstage service account in grafana.
+# Authoriation is user:password base64 encoded. In this case "admin:automate-all-the-things"
+kubectl port-forward -n observability service/grafana 8082:80 &
+curl -X POST 'http://localhost:8082/api/serviceaccounts' \
+     -H 'Accept: application/json' \
+     -H 'Content-Type: application/json' \
+     -H 'Authorization: Basic YWRtaW46YXV0b21hdGUtYWxsLXRoZS10aGluZ3M=' \
+     -d '{
+           "name": "backstage",
+           "role": "Viewer",
+           "isDisabled": false
+        }'
+export GRAFANA_TOKEN=$(curl -X POST 'http://localhost:8082/api/serviceaccounts/2/tokens' \
+                             -H 'Accept: application/json' \
+                             -H 'Content-Type: application/json' \
+                             -H 'Authorization: Basic YWRtaW46YXV0b21hdGUtYWxsLXRoZS10aGluZ3M=' \
+                             -d '{
+                                   "name": "backstage-token"
+                                 }' | grep -Po '"key":"\K.*?(?=")')
+
+kubectl create secret generic grafana-token -n backstage --from-literal=GRAFANA_TOKEN="$GRAFANA_TOKEN"
+
+
 # We create the secret for every require env var. This way the secrets won't get pushed to Github.
 kubectl create ns backstage
 kubectl create secret generic github-token -n backstage --from-literal=GITHUB_TOKEN="$GITHUB_TOKEN"
