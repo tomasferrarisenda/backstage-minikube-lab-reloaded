@@ -23,7 +23,7 @@ backend:
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
-    origin: http://localhost:3000
+    origin: [http://localhost:3000, http://localhost:8082]
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
   # This is for local development only, it is not recommended to use this in production
@@ -68,7 +68,6 @@ proxy:
     # May be a public or an internal DNS
     target: http://localhost:8082/
     headers:
-      # Authorization: Bearer glsa_ipIOBSL2aCX19FGb7ThiCdXBkMYiFDZR_2f47476d
       Authorization: Bearer ${GRAFANA_TOKEN}
 
 # Optional: this will link to your argoCD web UI for each argoCD application
