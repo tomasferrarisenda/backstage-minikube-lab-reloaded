@@ -44,7 +44,8 @@ sleep 10
 ##### sleep 10
 ##### export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(argocd account generate-token --account backstage-service-account)
 export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(curl  http://localhost:8081/api/v1/session -d $'{"username":"backstage-service-account","password":"backstage"}')
-export ARGOCD_AUTH_TOKEN="argocd.token=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
+# export ARGOCD_AUTH_TOKEN="argocd.token=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
+export ARGOCD_AUTH_TOKEN="argocd.token=$(echo $BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN | grep -Po '"token":\s*"\K([^"]*)')"
 echo "#############################################################################"
 echo "#############################################################################"
 echo "#############################################################################"
