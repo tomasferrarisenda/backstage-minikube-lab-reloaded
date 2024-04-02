@@ -200,10 +200,12 @@ const overviewContent = (
 
     {/* GRAFANA */}
     <Grid item md={6}>
-      <EntityOverviewDashboardViewer />
-    </Grid>
-    <Grid item md={6}>
       <EntityGrafanaDashboardsCard />
+    </Grid>
+    {/* I couldn't make the dashboard viewer work, so I commented it out
+    I kept getting  */}
+    <Grid item md={6}>
+      <EntityOverviewDashboardViewer />
     </Grid>
 
   </Grid>

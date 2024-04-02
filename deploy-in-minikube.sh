@@ -40,10 +40,10 @@ kubectl create -n argocd -f argo-cd/self-manage/argocd-app-of-apps-application.y
 # We expose argocd on port 8081 in the background so we can then login to get the token
 kubectl port-forward -n argocd service/argocd-server 8081:443 &
 sleep 10
-argocd login localhost:8081 --plaintext --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-sleep 10
-export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(argocd account generate-token --account backstage-service-account)
-# echo "BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
+##### argocd login localhost:8081 --plaintext --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+##### sleep 10
+##### export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(argocd account generate-token --account backstage-service-account)
+export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(curl  http://localhost:8081/api/v1/session -d $'{"username":"backstage-service-account","password":"backstage"}')
 export ARGOCD_AUTH_TOKEN="argocd.token=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
 echo "#############################################################################"
 echo "#############################################################################"
