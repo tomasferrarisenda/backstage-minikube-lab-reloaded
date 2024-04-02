@@ -77,7 +77,6 @@ argocd:
   baseUrl: http://localhost:8081/
 
 grafana:
-  # Publicly accessible domain
   domain: http://localhost:8082 # Don't use final slash "/". Links will fail if you do
 
   # Is unified alerting enabled in Grafana?

@@ -81,6 +81,15 @@ export GRAFANA_TOKEN=$(curl -X POST 'http://localhost:8082/api/serviceaccounts/2
                              -d '{
                                    "name": "backstage-token"
                                  }' | grep -Po '"key":"\K.*?(?=")')
+echo "#############################################################################"
+echo "#############################################################################"
+echo "#############################################################################"
+echo " "
+echo "GRAFANA_TOKEN=$GRAFANA_TOKEN"
+echo " "
+echo "#############################################################################"
+echo "#############################################################################"
+echo "#############################################################################"
 
 # We create the secret for every required env var. This way the secrets won't get pushed to Github.
 kubectl create ns backstage

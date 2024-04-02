@@ -86,9 +86,20 @@ proxy:
       Cookie:
         $env: ARGOCD_AUTH_TOKEN
 
+  '/grafana/api':
+    # May be a public or an internal DNS
+    target: http://grafana.observability.svc.cluster.local/
+    changeOrigin: true
+    secure: false
+    headers:
+      Authorization: Bearer ${GRAFANA_TOKEN}
+
 # Optional: this will link to your argoCD web UI for each argoCD application
-# argocd:
-#   baseUrl: http://localhost:8081/
+argocd:
+  baseUrl: https://argocd-server.argocd.svc.cluster.local/
+
+grafana:
+  domain: http://grafana.observability.svc.cluster.local # Don't use final slash "/". Links will fail if you do
 
   
 ##########################################################################################
