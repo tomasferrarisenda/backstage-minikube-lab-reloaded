@@ -74,7 +74,10 @@ import {
 } from '@roadiehq/backstage-plugin-argo-cd';
 import {
   EntityGrafanaDashboardsCard,
-  EntityOverviewDashboardViewer,
+  // I couldn't make the dashboard viewer work, so I commented it out.
+  // I kept getting error: 
+  // Refused to frame 'https://localhost:8082/' because it violates the following Content Security Policy directive: "frame-src 'self' http://localhost:8082".
+  // EntityOverviewDashboardViewer,
 } from '@k-phoen/backstage-plugin-grafana';
 
 const techdocsContent = (
@@ -202,11 +205,12 @@ const overviewContent = (
     <Grid item md={6}>
       <EntityGrafanaDashboardsCard />
     </Grid>
-    {/* I couldn't make the dashboard viewer work, so I commented it out
-    I kept getting  */}
-    <Grid item md={6}>
+    {/* I couldn't make the dashboard viewer work, so I commented it out.
+    I kept getting error: 
+    Refused to frame 'https://localhost:8082/' because it violates the following Content Security Policy directive: "frame-src 'self' http://localhost:8082". */}
+    {/* <Grid item md={6}>
       <EntityOverviewDashboardViewer />
-    </Grid>
+    </Grid> */}
 
   </Grid>
 );

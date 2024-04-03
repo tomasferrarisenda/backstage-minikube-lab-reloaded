@@ -97,10 +97,10 @@ proxy:
 
 # Optional: this will link to your argoCD web UI for each argoCD application
 argocd:
-  baseUrl: https://argocd-server.argocd.svc.cluster.local/
+  baseUrl: http://localhost:8081/
 
 grafana:
-  domain: http://grafana.observability.svc.cluster.local # Don't use final slash "/". Links will fail if you do
+  domain: http://localhost:8082 # Don't use final slash "/". Links will fail if you do
 
   
 ##########################################################################################

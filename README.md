@@ -53,7 +53,6 @@ We'll be using a GitOps methodology with Helm, ArgoCD and the App Of Apps Patter
 - nodejs installed
 - nvm installed
 - yarn installed
-- argocd cli installed
 
 </br>
 </br>
