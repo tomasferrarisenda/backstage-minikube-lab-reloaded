@@ -297,7 +297,7 @@ It generates a Pull Request which includes a new User manifest. When merged, the
 Creates all the boilerplate files and directories in an existing repo for deploying a new Node.js service in Kubernetes:
 1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
 2. The kubernetes manifests directory and files, which will be saved in [the helm-charts directory](/helm-charts/systems/).
-3. The [argocd application manifests fro the new service](/argo-cd/applications/systems/): These are read by the ArgoCD App of Apps.
+3. The argocd application manifests for the new service, which will be saved in the [argo-cd directory](/argo-cd/applications/systems/). These are read by the ArgoCD App of Apps.
 3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
 It generates a Pull Request which includes all these files al directories.
@@ -308,7 +308,7 @@ It generates a Pull Request which includes all these files al directories.
 Creates all the boilerplate files and directories in an existing repo for deploying a new NGINX service in Kubernetes:
 1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
 2. The kubernetes manifests directory and files, which will be saved in [the helm-charts directory](/helm-charts/systems/).
-3. The [argocd application manifests fro the new service](/argo-cd/applications/systems/): These are read by the ArgoCD App of Apps.
+3. The argocd application manifests for the new service, which will be saved in the [argo-cd directory](/argo-cd/applications/systems/). These are read by the ArgoCD App of Apps.
 3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
 It generates a Pull Request which includes all these files al directories.
