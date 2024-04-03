@@ -15,6 +15,7 @@ backend:
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
     img-src: ["'self'", 'data:', 'https://i.imgur.com', 'https://avatars.githubusercontent.com']
+    frame-src: ["'self'", 'http://localhost:8082'] # This allows the iframe to load the Grafana dashboards (when Grafana service is port-forwarded to localhost:8082)
 
   # Note that the baseUrl should be the URL that the browser and other clients
   # should use when communicating with the backend, i.e. it needs to be

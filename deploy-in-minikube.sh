@@ -43,9 +43,18 @@ sleep 10
 ##### argocd login localhost:8081 --plaintext --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 ##### sleep 10
 ##### export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(argocd account generate-token --account backstage-service-account)
-export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(curl  http://localhost:8081/api/v1/session -d $'{"username":"backstage-service-account","password":"backstage"}')
-# export ARGOCD_AUTH_TOKEN="argocd.token=$BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN"
-export ARGOCD_AUTH_TOKEN="argocd.token=$(echo $BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN | grep -Po '"token":\s*"\K([^"]*)')"
+# export BACKSTAGE_SERVICEACCOUNT_ARGOCD_TOKEN=$(curl  http://localhost:8081/api/v1/session -d $'{"username":"backstage-service-account","password":"backstage"}')
+export ARGOCD_ADMIN_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+export ARGOCD_ADMIN_BEARER_TOKEN=$(curl http://localhost:8081/api/v1/session -d '{"username":"admin","password":"'"$ARGOCD_ADMIN_PASSWORD"'"}' | grep -Po '"token":\s*"\K([^"]*)')
+export ARGOCD_AUTH_TOKEN_RAW=$(curl -X POST http://localhost:8081/api/v1/account/backstage-service-account/token \
+                                    -H "Content-Type: application/json" \
+                                    -H "Authorization: Bearer $ARGOCD_ADMIN_BEARER_TOKEN" \
+                                    -d '{
+                                      "expiresIn": 2592000,
+                                      "id": "1",
+                                      "name": "backstage-token"
+                                    }')
+export ARGOCD_AUTH_TOKEN="argocd.token=$(echo $ARGOCD_AUTH_TOKEN_RAW | grep -Po '"token":\s*"\K([^"]*)')"
 echo "#############################################################################"
 echo "#############################################################################"
 echo "#############################################################################"
@@ -76,12 +85,12 @@ curl -X POST 'http://localhost:8082/api/serviceaccounts' \
            "isDisabled": false
         }'
 export GRAFANA_TOKEN=$(curl -X POST 'http://localhost:8082/api/serviceaccounts/2/tokens' \
-                             -H 'Accept: application/json' \
-                             -H 'Content-Type: application/json' \
-                             -H 'Authorization: Basic YWRtaW46YXV0b21hdGUtYWxsLXRoZS10aGluZ3M=' \
-                             -d '{
-                                   "name": "backstage-token"
-                                 }' | grep -Po '"key":"\K.*?(?=")')
+                            -H 'Accept: application/json' \
+                            -H 'Content-Type: application/json' \
+                            -H 'Authorization: Basic YWRtaW46YXV0b21hdGUtYWxsLXRoZS10aGluZ3M=' \
+                            -d '{
+                                  "name": "backstage-token"
+                                }' | grep -Po '"key":"\K.*?(?=")')
 echo "#############################################################################"
 echo "#############################################################################"
 echo "#############################################################################"
