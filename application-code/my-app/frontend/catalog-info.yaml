@@ -9,6 +9,10 @@ metadata:
     github.com/project-slug: tomasferrarisenda/backstage-minikube-lab-reloaded
     # argocd/app-name: my-app-frontend-dev # This is for Backstage ArgoCD plugin 
     argocd/app-selector: system-service=my-app-frontend # This is for Backstage ArgoCD plugin 
+    # The following selector will return dashboards that have a my-service or a my-service-slo tag and have a generated tag.
+    # grafana/dashboard-selector: "(tags @> 'my-service' || tags @> 'my-service-slo') && tags @> 'generated'"
+    grafana/dashboard-selector: "tags @> 'linux'"
+    # grafana/overview-dashboard: 'http://localhost:8082/d/k8s_views_global/kubernetes-views-global?orgId=1&refresh=30s&from=1711929905403&to=1711933505403' # I couldn't make this work. Got error: Refused to frame 'https://localhost:8082/' because it violates the following Content Security Policy directive: "frame-src 'self' http://localhost:8082".
   tags:
     - nginx
   links:
