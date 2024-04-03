@@ -386,7 +386,7 @@ You should be able to access ArgoCD UI on localhost:8081 server to check everyth
 # CONCLUSION
 That's it! This is your own Backstage implementation now. 
 
-Feel free to add your own plugins, templates and whatever else you might think of. Customize to fit your own needs.
+Feel free to add your own plugins, templates and whatever else you might think of. Customize it to fit your own needs.
 
 For more DevOps and Platform Engineering goodness, check out my [Automate All The Things](https://github.com/tferrari92/automate-all-the-things) project.
 
