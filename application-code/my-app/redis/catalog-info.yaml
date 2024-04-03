@@ -5,7 +5,6 @@ metadata:
   description: My-App Redis Databse
   annotations:
     backstage.io/techdocs-ref: dir:.
-    backstage.io/kubernetes-id: my-app-redis
     # argocd/app-name: my-app-redis-dev # This is for Backstage ArgoCD plugin 
     argocd/app-selector: system-service=my-app-redis # This is for Backstage ArgoCD plugin 
     # This annotation doesn't work in objects of kind Resource. It only works in objects of kind Component.
