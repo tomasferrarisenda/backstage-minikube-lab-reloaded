@@ -57,7 +57,6 @@ We'll be using a GitOps methodology with Helm, ArgoCD and the App Of Apps Patter
 </br>
 </br>
 
-
 # INITIAL SETUP
 Before deploying Backstage in a Kubernetes environment (Minikube), we need to build it locally.
 
@@ -168,7 +167,6 @@ cd backstage/my-backstage/
 
 Then run
 ```bash
-cd backstage/my-backstage/
 yarn install
 yarn tsc
 yarn dev
@@ -222,6 +220,7 @@ You can add a Sign in page by uncommenting these lines in the [App.tsx file](/ba
 The [Kubernetes plugin](https://backstage.io/docs/features/kubernetes/) in Backstage is a tool that's designed around the needs of service owners, not cluster admins. Now developers can easily check the health of their services no matter how or where those services are deployed — whether it's on a local host for testing or in production on dozens of clusters around the world.
 
 It will elevate the visibility of errors where identified, and provide drill down about the deployments, pods, and other objects for a service.
+</br>
 
 ### GitHub Discovery plugin 
 The [GitHub Discovery plugin](https://backstage.io/docs/integrations/github/discovery) automatically discovers catalog entities within a GitHub organization. The provider will crawl the GitHub organization and register entities matching the configured path. This can be useful as an alternative to static locations or manually adding things to the catalog. This is the preferred method for ingesting entities into the catalog.
@@ -231,19 +230,23 @@ I've installed it without events support. Updates to the catalog will rely on pe
 You can check the automatic discovery configuration under catalog.providers.github in the [app-config.yaml](/backstage/my-backstage/app-config.yaml) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) files.
 
 **IMPORTANT**: We use [app-config.yaml](/backstage/my-backstage/app-config.yaml) for local testing (when running `yarn dev`) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) when deploying to Minikube.
+</br>
 
 ### GitHub Actions plugin 
 The [GitHub Actions plugin](https://roadie.io/backstage/plugins/github-actions/) actually cames by default, but I added "Recent Workflow Runs" card to the overview tab of Components. All workflows will be mixed up because we are using monorepo. If we had a repo for each service, then this would make a lot more sense.
+</br>
 
 ### GitHub Insights plugin
 The [GitHub Insights plugin](https://roadie.io/backstage/plugins/github-insights/) lets you see the GitHub insights of the repo like what languages are used, who are the contributors and a preview of the README.
+</br>
 
 ### ArgoCD plugin
 The [ArgoCD plugin](https://roadie.io/backstage/plugins/argo-cd/) will display (on the Overview tab of each component) the state of all ArgoCD applications related to it.
+</br>
 
 ### Grafana plugin
-I didn't take the time to build an appropiate dashboard for each of our services. Building dashboards is out of the scope of this lab. I've linked to a random dashboard just to demosntrate how the integration works.
-https://roadie.io/docs/integrations/grafana/
+The [Grafana plugin](https://roadie.io/docs/integrations/grafana/) I didn't take the time to build an appropiate dashboard for each of our services. Building dashboards is out of the scope of this lab. I've linked to a random dashboard just to demosntrate how the integration works.
+</br>
 
 <!-- ### Homepage plugin
 https://backstage.io/docs/getting-started/homepage/ 
@@ -285,7 +288,6 @@ It generates a Pull Request which includes a new User manifest. When merged, the
 Creates all the boilerplate files and directories in an existing repo for deploying a new Node.js service in Kubernetes:
 1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
 2. The kubernetes manifests directory and files, which will be saved in [the k8s-manifests directory](/k8s-manifests/).
-RELAODED
 3. The [backend service argocd application manifests](/argo-cd/applications/my-app/backend/): These are read by the App of Apps to 
 3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
@@ -297,7 +299,6 @@ It generates a Pull Request which includes all these files al directories.
 Creates all the boilerplate files and directories in an existing repo for deploying a new NGINX service in Kubernetes:
 1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
 2. The kubernetes manifests directory and files, which will be saved in [the k8s-manifests directory](/k8s-manifests/).
-RELAODED
 3. The [backend service argocd application manifests](/argo-cd/applications/my-app/backend/): These are read by the App of Apps to 
 3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
@@ -333,6 +334,7 @@ We first need to build and push the Backstage Docker image. Login to Docker
 ```bash
 docker login
 ```
+
 Then run the build-push-image.sh script
 ```bash
 chmod +x build-push-image.sh
@@ -363,14 +365,11 @@ Now run the deploy-in-minikube.sh script to get everything setup:
 chmod +x deploy-in-minikube.sh
 ./deploy-in-minikube.sh
 ```
+</br>
 
 Now go to localhost:8080 on your browser and Voilá!
 
-You can also port-forward ArgoCD server to check everything is runnin fine:
-```bash
-chmod +x deploy-in-minikube.sh
-./deploy-in-minikube.sh
-```
+You should be able to access ArgoCD UI on localhost:8081 server to check everything is runnin fine.
 
 </br>
 </br>
