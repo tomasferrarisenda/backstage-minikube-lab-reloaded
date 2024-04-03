@@ -26,6 +26,7 @@
 - [Initial Setup](#initial-setup)
 - [Run Backstage Locally](#run-backstage-locally)
 - [Customising Backstage](#customising-backstage)
+  - [OAuth With GitHub](#oauth-with-github)
   - [Plugins I've Added](#plugins-ive-added)
   - [Templates I've Created](#templates-ive-created)
   - [My Arbitrary Rules](#my-arbitrary-rules)
@@ -101,12 +102,14 @@ Click Generate token. Store the token somewhere safe.
 
 </br>
 
-### Set up secrets for GitHub workflows
+### (Optional) Set up secrets for GitHub workflows
 This is only required if you intend to use GitHub workflows.
 
 Create these two repository secrets on your GitHub repo:
 - DOCKER_USERNAME: <your-dockerhub-username\>
 - DOCKER_PASSWORD: <your-dockerhub-password\>
+
+</br>
 
 ### Set up GitHub OAuth
 https://github.com/settings/applications/new
