@@ -220,6 +220,7 @@ You can add a Sign in page by uncommenting these lines in the [App.tsx file](/ba
 The [Kubernetes plugin](https://backstage.io/docs/features/kubernetes/) in Backstage is a tool that's designed around the needs of service owners, not cluster admins. Now developers can easily check the health of their services no matter how or where those services are deployed — whether it's on a local host for testing or in production on dozens of clusters around the world.
 
 It will elevate the visibility of errors where identified, and provide drill down about the deployments, pods, and other objects for a service.
+
 </br>
 
 ### GitHub Discovery plugin 
@@ -230,22 +231,27 @@ I've installed it without events support. Updates to the catalog will rely on pe
 You can check the automatic discovery configuration under catalog.providers.github in the [app-config.yaml](/backstage/my-backstage/app-config.yaml) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) files.
 
 **IMPORTANT**: We use [app-config.yaml](/backstage/my-backstage/app-config.yaml) for local testing (when running `yarn dev`) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) when deploying to Minikube.
+
 </br>
 
 ### GitHub Actions plugin 
 The [GitHub Actions plugin](https://roadie.io/backstage/plugins/github-actions/) actually cames by default, but I added "Recent Workflow Runs" card to the overview tab of Components. All workflows will be mixed up because we are using monorepo. If we had a repo for each service, then this would make a lot more sense.
+
 </br>
 
 ### GitHub Insights plugin
 The [GitHub Insights plugin](https://roadie.io/backstage/plugins/github-insights/) lets you see the GitHub insights of the repo like what languages are used, who are the contributors and a preview of the README.
+
 </br>
 
 ### ArgoCD plugin
 The [ArgoCD plugin](https://roadie.io/backstage/plugins/argo-cd/) will display (on the Overview tab of each component) the state of all ArgoCD applications related to it.
+
 </br>
 
 ### Grafana plugin
 The [Grafana plugin](https://roadie.io/docs/integrations/grafana/) I didn't take the time to build an appropiate dashboard for each of our services. Building dashboards is out of the scope of this lab. I've linked to a random dashboard just to demosntrate how the integration works.
+
 </br>
 
 <!-- ### Homepage plugin
@@ -287,8 +293,8 @@ It generates a Pull Request which includes a new User manifest. When merged, the
 ### New Node.js in existing repo
 Creates all the boilerplate files and directories in an existing repo for deploying a new Node.js service in Kubernetes:
 1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
-2. The kubernetes manifests directory and files, which will be saved in [the k8s-manifests directory](/k8s-manifests/).
-3. The [backend service argocd application manifests](/argo-cd/applications/my-app/backend/): These are read by the App of Apps to 
+2. The kubernetes manifests directory and files, which will be saved in [the helm-charts directory](/helm-charts/systems/).
+3. The [argocd application manifests fro the new service](/argo-cd/applications/systems/): These are read by the ArgoCD App of Apps.
 3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
 It generates a Pull Request which includes all these files al directories.
@@ -298,8 +304,8 @@ It generates a Pull Request which includes all these files al directories.
 ### New NGINX in existing repo
 Creates all the boilerplate files and directories in an existing repo for deploying a new NGINX service in Kubernetes:
 1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
-2. The kubernetes manifests directory and files, which will be saved in [the k8s-manifests directory](/k8s-manifests/).
-3. The [backend service argocd application manifests](/argo-cd/applications/my-app/backend/): These are read by the App of Apps to 
+2. The kubernetes manifests directory and files, which will be saved in [the helm-charts directory](/helm-charts/systems/).
+3. The [argocd application manifests fro the new service](/argo-cd/applications/systems/): These are read by the ArgoCD App of Apps.
 3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
 It generates a Pull Request which includes all these files al directories.
@@ -383,91 +389,10 @@ For more DevOps and Platform Engineering goodness, check out my [Automate All Th
 
 Happy automating!
 
-<!-- # EXCERCISE
-
-## What we are starting off with
-We are starting off with a Redis database and a backend. Everytime the backend recieves a request it gets the value of "count" from the Redis db and returns it to the user. Before returning it, it adds +1 to "count".
-
-You can test it like this:
-```bash
-kubectl get pods -n my-app-dev -l app=my-app-backend-dev -o name | xargs -I {} kubectl exec -n my-app-dev {} -- curl -s localhost:3000
-```
-
-You should get:
-```bash
-{"count":1}%
-```
-
-You can test it on the other environments too:
-```bash
-kubectl get pods -n my-app-stage -l app=my-app-backend-stage -o name | xargs -I {} kubectl exec -n my-app-stage {} -- curl -s localhost:3000
-kubectl get pods -n my-app-prod -l app=my-app-backend-prod -o name | xargs -I {} kubectl exec -n my-app-prod {} -- curl -s localhost:3000
-```
-
-## What we are doing
-We are going to create the missing piece with the help of backstage, the frontend.
-
-Let's analyze the backend. With this Gitops setup we have, there's a number of things that need to exist in order for the backend service to be deployed. These are:
-1. The [my-app/backend directory](/my-app/backend/): In a real world scenario, the backend service would have its own repo where we would store all the application code. In this small lab we'll just save it in its own directory.
-2. The [helm/my-app/backend directory](/helm/my-app/backend/): Here we save the Helm chart for our backend service. This of course would also be in its own repo on a real world scenario.
-3. The [backend service argocd application manifests](/argo-cd/applications/my-app/backend/): These are read by the App of Apps to 
-4. The [backend build pipeline]():
-
-All of these files and directories we need to create for any new service we want to deploy. Luckily, we have Backstage Software Templates.
-
-## How we are doing it
-
-</br>
-</br>
 
 
 
-
-
-
-
-
-
-
-#### Backstage needs github api token to access software catalog. Get one on github console.
-
-When creating a personal access token on GitHub, you must select scopes to define the level of access for the token. The scopes required vary depending on your use of the integration: https://backstage.io/docs/integrations/github/locations/#token-scopes
-Reading software components:
-    repo        
-Reading organization data:
-    read:org
-    read:user
-    user:email
-Publishing software templates:
-    repo
-    workflow (if templates include GitHub workflows)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 
 ##### Info interesante:
 https://backstage.spotify.com/learn/backstage-for-all/software-catalog/4-modeling/
 https://backstage.spotify.com/learn/standing-up-backstage/putting-backstage-into-action/8-integration/
@@ -497,37 +422,34 @@ Our Software Templates are fundamental to the concept of Golden Paths at Spotify
 The blessed tools — those on the Golden Path — are visualized in the Explore section of Backstage. Read more https://engineering.atspotify.com/2020/08/how-we-use-golden-paths-to-solve-fragmentation-in-our-software-ecosystem/
 
 
-##### Component objects:
-https://backstage.io/docs/features/software-catalog/descriptor-format/#overall-shape-of-an-entity
+
+Searching through App Metadata with Backstage Search
+The Backstage Search feature allows you to integrate custom search engine providers. You can also use any of the three default search engines: Lunr, Postgres, or Elasticsearch. Lunr is the current search engine enabled on your Backstage app. However, the documentation does not recommend this setup for a production environment because this search engine may not perform indexing well enough when the volume of app metadata and documentation increases.
+https://www.kosli.com/blog/implementing-backstage-2-using-the-core-features/
+
+Optimizing Search Highlighting
+For a better search highlighting experience, add these lines of config to app-config.yaml:
+```yaml
+search:
+  pg:
+    highlightOptions:
+      useHighlight: true
+      maxWord: 35 # Used to set the longest headlines to output. The default value is 35.
+      minWord: 15 # Used to set the shortest headlines to output. The default value is 15.
+      shortWord: 3 # Words of this length or less will be dropped at the start and end of a headline, unless they are query terms. The default value of three (3) eliminates common English articles.
+      highlightAll: false # If true the whole document will be used as the headline, ignoring the preceding three parameters. The default is false.
+      maxFragments: 0 # Maximum number of text fragments to display. The default value of zero selects a non-fragment-based headline generation method. A value greater than zero selects fragment-based headline generation (see the linked documentation above for more details).
+      fragmentDelimiter: ' ... ' # Delimiter string used to concatenate fragments. Defaults to " ... ".
+```
+https://www.kosli.com/blog/implementing-backstage-2-using-the-core-features/ -->
 
 
 
-
-
-# Following this approach, no template will load in the UI if any one of those is broken!!!
-  locations:
-    - type: url
-      target: https://github.com/tomasferrarisenda/backstage/blob/main/templates/all-templates.yaml
-      rules:
-        - allow: [Template]
-
-
-## USAR PLUGIN DE AUTODISCOVERY POR LA MODALIDAD ACTUAL NO BORRA USERSAL SACARLOS DEL REPO
-# EXPLICAR LO DE app-config.yaml y app-config.production.ymal
-uno se usa para local (yarn dev), el otro apra el cluster. Ppalmente por la config para la bbdd postgress (en local no la utilizamos)
-
-
-
-
+<!-- VER PORQ EL RESOURCE REDIS NO APARECE BAJO OWNERSHIP DEL GRUPO REDIS
+PORQ My-App Redis Subteam no muestra ownership de resource redis??? http://localhost:3000/catalog/default/group/my-app-redis-subteam
 # BACKSTAGE
 If the only change you've made is to the app-config.yaml (or other configuration files) and not to the application code itself, you don't necessarily need to run yarn build or yarn build:backend. The Docker image build process should copy the updated configuration files into the image.
 
-
-
-
-
-# COSAS MODIFICADAS:
-values custom de argo, ingress.enabled cambiado a false
-
-
-AGREGARLE DESCRIPTION AL REPO DE GHUB -->
+AGREGARLE DESCRIPTION AL REPO DE GHUB
+ARREGLAR DLO DE LOS TAGS EN LOS TEMPLATES DE CREAR SERVICIOS
+AGREGAR DEPENDS ON EN TEMPLATE -->
