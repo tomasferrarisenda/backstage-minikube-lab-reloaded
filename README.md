@@ -242,6 +242,7 @@ The [GitHub Insights plugin](https://roadie.io/backstage/plugins/github-insights
 The [ArgoCD plugin](https://roadie.io/backstage/plugins/argo-cd/) will display (on the Overview tab of each component) the state of all ArgoCD applications related to it.
 
 ### Grafana plugin
+I didn't take the time to build an appropiate dashboard for each of our services. Building dashboards is out of the scope of this lab. I've linked to a random dashboard just to demosntrate how the integration works.
 https://roadie.io/docs/integrations/grafana/
 
 <!-- ### Homepage plugin
