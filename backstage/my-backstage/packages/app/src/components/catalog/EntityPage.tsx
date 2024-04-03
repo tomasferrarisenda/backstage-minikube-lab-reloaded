@@ -192,15 +192,6 @@ const overviewContent = (
       </EntitySwitch.Case>
     </EntitySwitch>
 
-    {/* ARGOCD */}
-    <EntitySwitch>
-      <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
-        <Grid item sm={4}>
-          <EntityArgoCDOverviewCard />
-        </Grid>
-      </EntitySwitch.Case>
-    </EntitySwitch>
-
     {/* GRAFANA */}
     <Grid item md={6}>
       <EntityGrafanaDashboardsCard />
@@ -211,6 +202,15 @@ const overviewContent = (
     {/* <Grid item md={6}>
       <EntityOverviewDashboardViewer />
     </Grid> */}
+
+    {/* ARGOCD */}
+    <EntitySwitch>
+      <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
+        <Grid item sm={4}>
+          <EntityArgoCDOverviewCard />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
 
   </Grid>
 );
