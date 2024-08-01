@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: juan-pedro
+spec:
+  profile:
+    displayName: "juan pedro"	
+    email: juando@hola.com
+    picture: sfddsf
+  memberOf:
+    - sendarti
