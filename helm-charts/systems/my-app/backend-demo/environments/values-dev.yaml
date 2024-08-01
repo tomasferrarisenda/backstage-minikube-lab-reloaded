@@ -1,0 +1,10 @@
+environment: dev
+    
+deployment:
+  image:  
+    tag: 
+  replicas: 1
+
+  labels:
+    environment: dev
+    app: my-app-backend-demo-dev

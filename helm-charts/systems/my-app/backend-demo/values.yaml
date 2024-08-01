@@ -1,0 +1,12 @@
+system: my-app 
+
+service: backend-demo 
+
+deployment:
+  image:
+    repository: AATT_DOCKERHUB_USERNAME/my-app-backend-demo
+  labels:
+    system: my-app
+    service: backend-demo
+    backstage.io/kubernetes-id: my-app-backend-demo
+    # istio: monitor

@@ -1,0 +1,42 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: my-app-backend-demo
+  description: Este es el backed para la demo al cliente
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-id: my-app-backend-demo
+    github.com/project-slug: tomasferrarisenda/backstage-minikube-lab-reloaded
+    argocd/app-selector: system-service=my-app-backend-demo # This is for Backstage ArgoCD plugin. You need to add this label in the application.yaml. You can also use argocd/app-name
+    grafana/dashboard-selector: "tags @> 'linux'" # The following selector will return dashboards that have a 'linux' tag
+  tags:
+    - nodejs
+  links:
+    - title: Documentation
+      url: https://github.com/tomasferrarisenda/backstage-minikube-lab-reloaded.git
+      icon: docs
+    - title: Admin Dashboard
+      type: admin-dashboard
+      icon: dashboard
+      url: https://admin.example-org.com
+    - title: Metrics
+      type: metrics-dashboard
+      icon: analytics
+      url: https://grafana.domain.com/
+    - title: Logs
+      type: logs-dashboard  
+      icon: assignment
+      url: https://grafana.domain.com/
+    - title: Helm Chart
+      type: helm-chart 
+      icon: github
+      url: https://github.com/tomasferrarisenda/backstage-minikube-lab-reloaded/tree/main/helm-charts/systems/my-app/backend-demo
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default/my-app-backend-subteam
+  system: my-app
+  # dependsOn:
+  #   - 
+  # providesApis:
+  #   - 
