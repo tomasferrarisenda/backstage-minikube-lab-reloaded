@@ -1,0 +1,4 @@
+apiVersion: v2
+name: demo-frontend
+description: A Helm chart for deploying demo-frontend
+version: 1.0
