@@ -1,0 +1,7 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: sendati
+  description: Website that provides quality devops
+spec:
+  owner: sendati-team
