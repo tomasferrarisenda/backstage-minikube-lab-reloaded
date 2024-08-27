@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: martooo
+spec:
+  profile:
+    displayName: Marto Barrionuevo
+    email: marto.barrionuevo@sendati.com
+    picture: https://i.imgur.com/3muVmQt.jpg
+  memberOf:
+    - delta-sendati-subteam

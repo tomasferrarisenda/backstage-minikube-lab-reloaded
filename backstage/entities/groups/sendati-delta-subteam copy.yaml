@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: sendati-delta-subteam
+  title: Sendati Delta Subteam
+  description: Responsible for maintaining and developing the Delta tasks of Sendati system
+  tags:
+    - engineering
+    - reactjs
+spec:
+  type: team
+  children: []
+  parent: sendati-team
+  # members:
+  #   - geralt
+  profile:
+    email: sendati-delta-subteam@example.com
+    # slack: 
