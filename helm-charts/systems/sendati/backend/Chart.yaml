@@ -1,0 +1,4 @@
+apiVersion: v2
+name: sendati-backend
+description: A Helm chart for deploying sendati-backend
+version: 1.0

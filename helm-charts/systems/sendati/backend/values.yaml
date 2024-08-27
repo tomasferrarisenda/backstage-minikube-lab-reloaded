@@ -1,0 +1,12 @@
+system: sendati 
+
+service: backend 
+
+deployment:
+  image:
+    repository: AATT_DOCKERHUB_USERNAME/sendati-backend
+  labels:
+    system: sendati
+    service: backend
+    backstage.io/kubernetes-id: sendati-backend
+    # istio: monitor
